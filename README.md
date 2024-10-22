@@ -1,6 +1,6 @@
 # Blog App
 
-A simple blog application built using the MERN stack. This application allows users to create, read, update, and delete blog posts. Users can also register and log in to manage their posts.
+A blog application built using the MERN stack. This application allows users to create, read, update, and delete blog posts. Users can also register and log in to manage their posts.
 
 ## Table of Contents
 
