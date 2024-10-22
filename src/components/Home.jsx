@@ -1,5 +1,6 @@
 import React from 'react';
 import Lottie from 'lottie-react';
+import '../styles/loginbtn.css';
 import animationData from '../utils/bloganimatio.json';
 import { ArrowRight, BookOpen, Edit, Settings, TrendingUp } from "lucide-react";
 
@@ -14,9 +15,10 @@ const Home = () => {
           <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
             Create, share, and grow your audience with our powerful and intuitive blogging platform.
           </p>
+            <button>Get Started!</button>
         </div>
         <div className="lg:w-1/2 flex justify-center lg:justify-end">
-          <Lottie animationData={animationData} loop={true} className="max-w-full h-auto" />
+          {/* <Lottie animationData={animationData} loop={true} className="max-w-full h-auto" /> */}
         </div>
       </main>
       <footer className="mt-16 py-8 text-center">

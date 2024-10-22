@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaEnvelope } from 'react-icons/fa';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import { GiOpenBook } from 'react-icons/gi';
+import Lottie from 'lottie-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,7 +33,7 @@ const Navbar = () => {
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0">
               <Link to="/">
-                <GiOpenBook className="text-white h-8 w-8" /> 
+                <GiOpenBook className="text-white h-8 w-8" />
               </Link>
             </div>
             <div className="hidden sm:block sm:ml-6">
