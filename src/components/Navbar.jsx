@@ -9,10 +9,10 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const blogLinks = [
-    { name: 'Home', path: '/' },
+    { name: 'Blogs', path: '/blogs' },
     { name: 'Categories', path: '/categories' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Bookmarks', path: '/bookmarks' },
+    { name: 'Profile', path: '/Profile' },
   ];
 
   return (

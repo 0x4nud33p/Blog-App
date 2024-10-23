@@ -1,7 +1,7 @@
 import React from "react"
 import { BrowserRouter,Route,Routes } from "react-router-dom"
 import Layout from '../Layout.jsx'
-import { Home } from "../Exports.js"
+import { Home,Blogs, Categories } from "../Exports.js"
 
 export default function App() {
   return (
@@ -9,6 +9,8 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
       <Route path="" element={<Home />}/>
+      <Route path="/blogs" element={<Blogs />}/>
+      <Route path="/categories" element={<Categories />}/>
       {/* other routes goes here */}
       </Route>
     </Routes>
