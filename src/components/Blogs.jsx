@@ -10,12 +10,7 @@ export default function Blogs() {
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="lg:w-1/4 w-full ml-10 lg:sticky top-20 lg:h-screen">
             <TrendingTags />
-            <button
-              className="group inline-block mt-10 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] rounded-xl 
-                         hover:text-white focus:outline-none focus:ring active:text-opacity-75 
-                         transition-all duration-300 ease-out transform hover:scale-105 
-                         text-black bg-white px-8 py-3 text-sm font-medium group-hover:bg-transparent"
-            >
+            <button className='mt-10 p-2 rounded-xl border-b-8'>
               Write a New Blog
             </button>
           </div>

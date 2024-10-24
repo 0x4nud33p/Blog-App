@@ -8,7 +8,7 @@ const blogPosts = [
   { id: 4, title: "Mastering Tailwind CSS", excerpt: "Dive deep into Tailwind CSS and create beautiful, responsive designs.", date: "2023-05-20" },
   { id: 5, title: "Mastering Tailwind CSS", excerpt: "Dive deep into Tailwind CSS and create beautiful, responsive designs.", date: "2023-05-20" },
   { id: 6, title: "Mastering Tailwind CSS", excerpt: "Dive deep into Tailwind CSS and create beautiful, responsive designs.", date: "2023-05-20" },
-  // Add more blog posts...
+  
 ];
 
 function BlogContent() {
