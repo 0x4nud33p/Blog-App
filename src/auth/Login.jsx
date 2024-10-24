@@ -73,14 +73,13 @@ export default function Login() {
   );
 
   return (
-    <div className="bg-gray-900 text-gray-200 min-h-[670px]">
-      <Toaster />
+    <div className="bg-gradient-to-b from-[#2F2B68] via-[#312B65] to-[#5f1831] mt-[80px] min-h-[670px]">
       <div className="mx-auto max-w-[350px] space-y-6 p-4">
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">Sign In</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl text-white font-bold">Sign In</h1>
+          <p className="text-white">
             Not a User?{" "}
-            <Link to="/signup" className="text-blue-500">
+            <Link to="/signup" className="text-white underline">
               Sign Up
             </Link>
           </p>
@@ -88,7 +87,7 @@ export default function Login() {
         <form onSubmit={onSubmit}>
           <div className="space-y-4">
             <div className="space-y-2">
-              <label htmlFor="email" className="block font-medium">
+              <label htmlFor="email" className="text-white block font-medium">
                 Email
               </label>
               <input
@@ -103,7 +102,7 @@ export default function Login() {
               {formError && <p className="text-red-500 text-sm">{formError}</p>}
             </div>
             <div className="space-y-2">
-              <label htmlFor="password" className="block font-medium">
+              <label htmlFor="password" className="text-white block font-medium">
                 Password
               </label>
               <div className="relative">

@@ -1,7 +1,7 @@
 import React from "react"
 import { BrowserRouter,Route,Routes } from "react-router-dom"
 import Layout from '../Layout.jsx'
-import { Home, Blogs, Categories, Profile, Bookmarks } from "../Exports.js"
+import { Home, Blogs, Categories, Profile, Bookmarks, Signup, Login } from "../Exports.js"
 
 export default function App() {
   return (
@@ -13,6 +13,8 @@ export default function App() {
       <Route path="/categories" element={<Categories />}/>
       <Route path="/bookmarks" element={<Bookmarks />}/>
       <Route path="/profile" element={<Profile />}/>
+      <Route path="/signup" element={<Signup />}/>
+      <Route path="/login" element={<Login />}/>
       {/* other routes goes here */}
       </Route>
     </Routes>

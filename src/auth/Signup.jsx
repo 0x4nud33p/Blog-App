@@ -71,20 +71,20 @@ export default function Signup() {
   );
 
   return (
-    <div className="bg-gray-900 text-gray-200 min-h-[670px]">
+    <div className="bg-gradient-to-b from-[#2F2B68] via-[#312B65] to-[#5f1831] mt-[80px] min-h-[670px]">
       <Toaster />
       <div className="mx-auto max-w-[350px] space-y-6 p-4">
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold">Sign Up</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl text-white font-bold">Sign Up</h1>
+          <p className="text-white">
             Already a User?{" "}
-            <Link to="/signin" className="text-blue-500">
-              Sign In
+            <Link to="/login" className="text-white underline">
+              Log In
             </Link>
           </p>
         </div>
         <form onSubmit={onSubmit}>
-          <div className="space-y-4">
+          <div className="space-y-4 text-white">
             <div className="space-y-2">
               <label htmlFor="fullname" className="block font-medium">
                 Full Name
@@ -96,7 +96,7 @@ export default function Signup() {
                 required
                 value={formData.fullname}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border text-black border-gray-300 rounded"
+                className="w-full px-3 py-2 border  border-gray-300 rounded"
               />
             </div>
             <div className="space-y-2">
@@ -110,7 +110,7 @@ export default function Signup() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 text-black border border-gray-300 rounded"
+                className="w-full px-3 py-2  border border-gray-300 rounded"
               />
               {formError && <p className="text-red-500 text-sm">{formError}</p>}
             </div>
