@@ -2,7 +2,7 @@ import React from 'react';
 
 function Profile() {
   return (
-    <div className="bg-white bg-opacity-10 p-6 rounded-lg hover:bg-opacity-20 transition duration-300">
+    <div className="mt-[80px] bg-gradient-to-b from-[#2F2B68] via-[#312B65] to-[#5f1831] p-6 hover:bg-opacity-20 transition duration-300">
       <h3 className="text-xl font-semibold mb-2">Profile</h3>
       <div className="space-y-4">
         <p className="text-gray-300">Name: John Doe</p>

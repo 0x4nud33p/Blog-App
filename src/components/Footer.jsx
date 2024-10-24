@@ -23,16 +23,16 @@ export default function Footer() {
           <h3 className="text-xl font-bold text-[#D3B0FF]">Quick Links</h3>
           <ul className="space-y-2">
             <li>
-              <Link to="#" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Home</Link>
+              <Link to="/" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Home</Link>
             </li>
             <li>
-              <Link to="#" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Categories</Link>
+              <Link to="/categories" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Categories</Link>
             </li>
             <li>
-              <Link to="#" className="text-[#AEAEAE] hover:text-[#D3B0FF]">About Us</Link>
+              <Link to="/bookmarks" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Bookmarks</Link>
             </li>
             <li>
-              <Link to="#" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Contact</Link>
+              <Link to="/profile" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Profile</Link>
             </li>
           </ul>
         </div>
@@ -43,7 +43,6 @@ export default function Footer() {
           <p className="text-[#AEAEAE]">
             Have questions? Reach out to us via email or follow us on social media for updates.
           </p>
-          <p className="text-[#AEAEAE]">info@blogapp.com</p>
         </div>
       </div>
 
