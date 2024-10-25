@@ -8,5 +8,18 @@ import Categories from "./src/components/Categories.jsx";
 import TrendingTags from "./src/components/TrendingTags.jsx";
 import Login from "./src/auth/login.jsx";
 import Signup from "./src/auth/Signup.jsx";
+import BlogEditor from './src/texteditor/BlogEditor.jsx'
 
-export { Navbar, Footer, Home, Blogs, TrendingTags, Categories,Bookmarks,Profile,Login,Signup };
+export {
+  Navbar,
+  Footer,
+  Home,
+  Blogs,
+  TrendingTags,
+  Categories,
+  Bookmarks,
+  Profile,
+  Login,
+  Signup,
+  BlogEditor,
+};

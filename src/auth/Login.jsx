@@ -79,7 +79,7 @@ export default function Login() {
           <h1 className="text-3xl text-white font-bold">Sign In</h1>
           <p className="text-white">
             Not a User?{" "}
-            <Link to="/signup" className="text-white underline">
+            <Link to="/auth/signup" className="text-white underline">
               Sign Up
             </Link>
           </p>

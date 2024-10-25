@@ -4,6 +4,7 @@ import Layout from '../Layout.jsx'
 import { Home, Blogs, Categories, Profile, Bookmarks, Signup, Login } from "../Exports.js"
 
 export default function App() {
+  
   return (
     <BrowserRouter>
     <Routes>
@@ -13,8 +14,8 @@ export default function App() {
       <Route path="/categories" element={<Categories />}/>
       <Route path="/bookmarks" element={<Bookmarks />}/>
       <Route path="/profile" element={<Profile />}/>
-      <Route path="/signup" element={<Signup />}/>
-      <Route path="/login" element={<Login />}/>
+      <Route path="/auth/signup" element={<Signup />}/>
+      <Route path="/auth/login" element={<Login />}/>
       {/* other routes goes here */}
       </Route>
     </Routes>

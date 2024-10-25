@@ -17,7 +17,7 @@ const Home = () => {
           <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
             Create, share, and grow your audience with our powerful and intuitive blogging platform.
           </p>
-            <Link to='/signup'>
+            <Link to='/auth/signup'>
             <button className='p-2 mt-4 rounded'>Get Started!</button>
             </Link>
         </div>
