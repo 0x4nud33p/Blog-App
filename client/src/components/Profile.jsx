@@ -17,10 +17,10 @@ function Profile() {
         </div>
         <p className="text-gray-300 mb-4">Bio: A short bio about John Doe.</p>
         <div className='flex align-center justify-center space-x-6'>
-          <button className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md transition duration-300">
+          <button className="styled-button text-black bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md transition duration-300">
           Edit Profile
         </button>
-        <button className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md transition duration-300">
+        <button className="styled-button text-black bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md transition duration-300">
           Sign Out
         </button>
         </div>

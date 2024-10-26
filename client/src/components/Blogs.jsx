@@ -23,7 +23,7 @@ export default function Blogs() {
           <div className="lg:w-1/4 w-full ml-10 lg:sticky top-20 lg:h-screen">
             <TrendingTags />
             <button 
-              className='mt-10 p-2 rounded-xl border-b-8' 
+              className='styled-button mt-10 rounded' 
               onClick={handleButtonClick}
             >
               Write a New Blog
