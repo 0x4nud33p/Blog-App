@@ -7,7 +7,7 @@ export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    fullname: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -39,8 +39,8 @@ export default function Signup() {
       setIsLoading(true);
 
       try {
-        const response = await axios.post("/api/signup", {
-          username: formData.fullname,
+        const response = await axios.post("http://localhost:3000/api/auth/signup", {
+          username: formData.username,
           email: formData.email,
           password: formData.password,
         });
@@ -48,7 +48,7 @@ export default function Signup() {
         if (response.status === 201) {
           toast.success("Signup successful! Please Login");
           setFormError(null);
-          navigate('/signin'); 
+          navigate('/auth/login'); 
         }
       } catch (error) {
         console.error("Signup error:", error);
@@ -86,17 +86,17 @@ export default function Signup() {
         <form onSubmit={onSubmit}>
           <div className="space-y-4 text-white">
             <div className="space-y-2">
-              <label htmlFor="fullname" className="block font-medium">
-                Full Name
+              <label htmlFor="username" className="block font-medium">
+                Username
               </label>
               <input
-                id="fullname"
+                id="username"
                 type="text"
-                placeholder="Enter Fullname"
+                placeholder="Enter Username"
                 required
-                value={formData.fullname}
+                value={formData.username}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border  border-gray-300 rounded"
+                className="w-full px-3 py-2 border text-black  border-gray-300 rounded"
               />
             </div>
             <div className="space-y-2">
@@ -110,7 +110,7 @@ export default function Signup() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2  border border-gray-300 rounded"
+                className="w-full px-3 py-2  border text-black border-gray-300 rounded"
               />
               {formError && <p className="text-red-500 text-sm">{formError}</p>}
             </div>

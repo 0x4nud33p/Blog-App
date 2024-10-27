@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEnvelope } from 'react-icons/fa';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
+import toast, { Toaster } from 'react-hot-toast';
 import { GiOpenBook } from 'react-icons/gi';
 import Lottie from 'lottie-react';
 
@@ -18,6 +19,7 @@ const Navbar = () => {
   return (
     <nav className="bg-gradient-to-b from-[#2F2B68] via-[#2F2B68] to-[#2F2B68] fixed w-full top-0 z-20 backdrop-filter backdrop-blur-sm shadow-lg">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <Toaster />
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <button

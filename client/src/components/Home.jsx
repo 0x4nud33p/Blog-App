@@ -17,7 +17,9 @@ const Home = () => {
             Create, share, and grow your audience with our powerful and intuitive blogging platform.
           </p>
           <Link to='/auth/signup'>
-            <button className='styled-button mt-4 rounded'>Get Started!</button>
+             {!localStorage.getItem('token') ? (
+              <button className='styled-button mt-4 rounded'>Get Started!</button>
+            ) : null}
           </Link>
         </div>
         <div className="lg:w-1/2 flex justify-center lg:justify-end">
