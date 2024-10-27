@@ -42,7 +42,7 @@ export default function BlogCard({ title, excerpt, date, author = "John Doe", re
                 Read more
                 <ChevronRight className="ml-1 h-4 w-4" />
               </span>
-              <div className="flex items-center space-x-2 sm:hidden">
+              <div className="flex items-center space-x-2 ">
                 <button
                   onClick={() => setIsBookmarked(!isBookmarked)}
                   className={`p-1 rounded-full ${isBookmarked ? 'bg-primary text-primary-foreground' : 'bg-black bg-opacity-50 text-white'} hover:bg-opacity-75 transition-colors`}

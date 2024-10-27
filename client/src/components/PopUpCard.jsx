@@ -1,14 +1,12 @@
-'use client'
-
 import { useState } from 'react';
 import { BlogEditor } from '../../Exports.js';
 
 export default function PopUpCard({ onClose }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-10">
-      <div className="bg-white w-[1000px] max-h-[80vh] rounded-lg shadow-lg relative overflow-y-auto">
+      <div className="bg-white w-full max-w-[900px] max-h-[80vh] rounded-lg shadow-lg relative overflow-y-auto">
         <div className="p-6">
-          <h2 className="text-2xl font-bold mb-4 text-black">Write A Blog</h2>
+          <h2 className="text-2xl font-bold mb-4 text-black text-center">Write A Blog</h2>
           <button 
             className="absolute right-4 top-4 p-2 rounded-full text-gray-400 hover:text-gray-600"
             onClick={onClose}
@@ -19,17 +17,22 @@ export default function PopUpCard({ onClose }) {
             <span className="sr-only">Close</span>
           </button>
         </div>
-        
-        <div className="flex items-center px-6 mb-4 text-black">
-          <input type="file" className="mr-4" />
-          <span className="mr-2">OR</span>
-          <input placeholder="Generate Image" className="p-2 border border-gray-300 rounded-md flex-grow mr-4" />
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Generate using AI</button>
+        <div className="flex flex-col md:flex-row items-center px-4 mb-2 space-y-2 md:space-y-0 md:space-x-2">
+          <label className='text-black'>Upload Image</label>
+          <input 
+            placeholder="Image description" 
+            type='file'
+            className="w-full md:w-auto p-1 border border-gray-300 rounded-md" 
+          />
         </div>
-        
-        <div className="flex items-center px-6 mb-4">
-          <input placeholder="Blog Heading" className="p-2 border border-gray-300 rounded-md flex-grow mr-4" />
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Generate using AI</button>
+        <div className="flex flex-col md:flex-row items-center px-6 mb-4 space-y-2 md:space-y-0 md:space-x-2">
+          <input 
+            placeholder="Blog Heading" 
+            className="w-full md:w-auto p-2 border border-gray-300 rounded-md" 
+          />
+          <button className="w-full md:w-auto bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+            Generate using AI
+          </button>
         </div>
 
         <div className="px-6 pb-6">
