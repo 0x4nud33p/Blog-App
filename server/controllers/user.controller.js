@@ -10,37 +10,31 @@ async function hashPassword(password) {
   return hashedPassword;
 }
 
+
+
 const registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, profileImage } = req.body;
 
   if (!email || !password || !username) {
-    return res
-      .status(400)
-      .json({ message: "Email, password, and username are required" });
+    return res.status(400).json({ message: "Please fill in all fields" });
   }
 
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   try {
-    const existingUser = await User.findOne({ email });
-    if (!existingUser) {
-      const hashedPassword = await hashPassword(password);
+    const newUser = await User.create({
+      username,
+      email,
+      password: hashedPassword,
+      profileImage,
+    });
 
-      const newUser = await User.create({
-        username,
-        email,
-        password: hashedPassword,
-      });
-
-      return res.status(201).json({ message: "User registered successfully" });
-    } else {
-      return res
-        .status(400)
-        .json({ message: "User already exists, please login" });
-    }
+    res.status(201).json({
+      message: "User created successfully",
+      user: newUser,
+    });
   } catch (error) {
-    console.error("Error while signing up:", error.message);
-    return res
-      .status(500)
-      .json({ message: "Server error", error: error.message });
+    res.status(500).json({ message: "Error creating user", error });
   }
 };
 

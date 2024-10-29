@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,9 @@ export default function Signup() {
     password: "",
   });
   const [formError, setFormError] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
   const navigate = useNavigate();
+  
 
   const validateForm = useCallback(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -29,26 +31,42 @@ export default function Signup() {
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
+  const handleImageChange = (e) => {
+    setProfileImage(e.target.files[0]);
+  };
+
   const onSubmit = useCallback(
     async (e) => {
       e.preventDefault();
       if (!validateForm()) return;
 
       const loadingToast = toast.loading("Saving data...");
-
       setIsLoading(true);
 
       try {
+        const imageData = new FormData();
+        imageData.append("file", profileImage);
+        imageData.append("upload_preset", "blogmediaupload");
+
+        const imageUploadResponse = await axios.post(
+          `https://api.cloudinary.com/v1_1/dbghbvuhb/image/upload`,
+          imageData
+        );
+
+        const imageUrl = imageUploadResponse.data.secure_url;
+        console.log(imageUrl);
+        
         const response = await axios.post("http://localhost:3000/api/auth/signup", {
           username: formData.username,
           email: formData.email,
           password: formData.password,
+          profileImage: imageUrl,
         });
 
         if (response.status === 201) {
           toast.success("Signup successful! Please Login");
           setFormError(null);
-          navigate('/auth/login'); 
+          navigate("/auth/login");
         }
       } catch (error) {
         console.error("Signup error:", error);
@@ -59,7 +77,7 @@ export default function Signup() {
         setIsLoading(false);
       }
     },
-    [formData, validateForm, navigate]
+    [formData, validateForm, navigate, profileImage]
   );
 
   const buttonClasses = useMemo(
@@ -86,9 +104,7 @@ export default function Signup() {
         <form onSubmit={onSubmit}>
           <div className="space-y-4 text-white">
             <div className="space-y-2">
-              <label htmlFor="username" className="block font-medium">
-                Username
-              </label>
+              <label htmlFor="username" className="block font-medium">Username</label>
               <input
                 id="username"
                 type="text"
@@ -96,13 +112,11 @@ export default function Signup() {
                 required
                 value={formData.username}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border text-black  border-gray-300 rounded"
+                className="w-full px-3 py-2 border text-black border-gray-300 rounded"
               />
             </div>
             <div className="space-y-2">
-              <label htmlFor="email" className="block font-medium">
-                Email
-              </label>
+              <label htmlFor="email" className="block font-medium">Email</label>
               <input
                 id="email"
                 type="email"
@@ -110,14 +124,12 @@ export default function Signup() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2  border text-black border-gray-300 rounded"
+                className="w-full px-3 py-2 border text-black border-gray-300 rounded"
               />
               {formError && <p className="text-red-500 text-sm">{formError}</p>}
             </div>
             <div className="space-y-2">
-              <label htmlFor="password" className="block font-medium">
-                Password
-              </label>
+              <label htmlFor="password" className="block font-medium">Password</label>
               <div className="relative">
                 <input
                   id="password"
@@ -135,6 +147,17 @@ export default function Signup() {
                   {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="profileImage" className="block font-medium">Profile Picture</label>
+              <input
+                id="profileImage"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="w-full border text-black border-gray-300 rounded"
+                required
+              />
             </div>
             <button
               className={buttonClasses}
