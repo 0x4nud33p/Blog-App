@@ -63,4 +63,24 @@ const updateBlog = async (req, res) => {
   }
 };
 
-export { addBlog, removeBlog, updateBlog };
+const retrieveBlogs = async (req, res) => {
+  const { userid } = req.params;
+
+  try {
+    const blogs = await Blog.find({ owner: userid });
+    if (blogs.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "User has not posted any blogs yet" });
+    }
+
+    res.status(200).json({
+      message: "Blogs retrieved successfully",
+      blogs: blogs,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error });
+  }
+};
+
+export { addBlog, removeBlog, updateBlog, retrieveBlogs };
