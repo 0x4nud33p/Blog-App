@@ -10,8 +10,17 @@ function Profile() {
   const [image, setImage] = useState(null);
   const token = localStorage.getItem('token');
 
+  // Load user details from localStorage when component mounts
   useEffect(() => {
-    if (token) {
+    const storedUser = JSON.parse(localStorage.getItem('userDetails'));
+    if (storedUser) {
+      setBio(storedUser.bio || '');
+      setImage(storedUser.profileImage || '');
+      setEmail(storedUser.email);
+      setUsername(storedUser.username);
+    }
+    
+    if (token && !storedUser) {
       axios
         .get('http://localhost:3000/api/user', {
           headers: {
@@ -20,10 +29,14 @@ function Profile() {
           },
         })
         .then((res) => {
-          setBio(res.data.user.bio || '');
-          setImage(res.data.user.profileImage || '');
-          setEmail(res.data.user.email);
-          setUsername(res.data.user.username);
+          const userData = res.data.user;
+          setBio(userData.bio || '');
+          setImage(userData.profileImage || '');
+          setEmail(userData.email);
+          setUsername(userData.username);
+          
+          // Save user details to localStorage
+          localStorage.setItem('userDetails', JSON.stringify(userData));
         })
         .catch((error) => console.error('Error fetching user data:', error));
     }
@@ -40,15 +53,22 @@ function Profile() {
     }
   };
 
-
   const toggleEdit = async () => {
     if (isEditing && token) {
       try {
+        const updatedUser = { bio, profileImage: image };
         await axios.put(
           'http://localhost:3000/api/user/update',
-          { bio, profileImage: image },
+          updatedUser,
           { headers: { Authorization: `Bearer ${token}` } }
         );
+        
+        // Update localStorage with new user details
+        localStorage.setItem('userDetails', JSON.stringify({
+          ...updatedUser,
+          email,
+          username,
+        }));
       } catch (error) {
         console.error('Error updating profile:', error);
       }
@@ -58,6 +78,7 @@ function Profile() {
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userDetails'); // Remove user details on sign-out
   };
 
   return (
