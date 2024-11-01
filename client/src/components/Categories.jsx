@@ -10,7 +10,7 @@ function Categories() {
       </div>
       <div className="flex justify-center w-full mt-8">
         <div className="lg:w-3/4 w-full">
-          <BlogContent />
+          <BlogContent methodtype={"retrieveLatestBlogs"} />
         </div>
       </div>
     </div>

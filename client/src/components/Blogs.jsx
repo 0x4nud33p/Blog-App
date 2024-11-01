@@ -14,7 +14,7 @@ export default function Blogs() {
   const handleClosePopup = () => {
     setIsPopupOpen(false);
   };
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#2F2B68] via-[#312B65] to-[#5f1831] text-white p-8">
       <div className="max-w-7xl mx-auto">
@@ -30,7 +30,7 @@ export default function Blogs() {
             </button>
           </div>
           <div className="lg:w-3/4 w-full">
-            <BlogContent />
+            <BlogContent  methodtype={"retrieveAllBlogs"}/>
           </div>
         </div>
       </div>

@@ -82,5 +82,46 @@ const retrieveBlogs = async (req, res) => {
     res.status(500).json({ message: "Server Error", error });
   }
 };
+const retrieveAllBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find();
+    if (blogs.length === 0) {
+      return res.status(404).json({ message: "No blogs available." });
+    }
 
-export { addBlog, removeBlog, updateBlog, retrieveBlogs };
+    res.status(200).json({
+      message: "Blogs retrieved successfully",
+      blogs: blogs,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error });
+  }
+};
+
+const retrieveLatestBlogs = async (req, res) => {
+  try {
+    const blogs = await Blog.find().sort({ createdAt: -1 });
+
+    if (blogs.length === 0) {
+      return res.status(404).json({ message: "No blogs available." });
+    }
+
+    res.status(200).json({
+      message: "Blogs retrieved successfully",
+      blogs: blogs,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error });
+  }
+};
+
+
+
+export {
+  addBlog,
+  removeBlog,
+  updateBlog,
+  retrieveBlogs,
+  retrieveAllBlogs,
+  retrieveLatestBlogs,
+};
