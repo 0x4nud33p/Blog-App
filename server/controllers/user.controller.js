@@ -61,7 +61,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "10d" }
     );
 
     return res.status(200).json({
@@ -88,14 +88,17 @@ const getUserData = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     const { password, ...userData } = user._doc;
-    return res.status(200).json({ message: "User details found successfully", user: userData });
+    return res
+      .status(200)
+      .json({ message: "User details found successfully", user: userData });
   } catch (error) {
     if (error.name === "TokenExpiredError") {
       return res.status(403).json({ message: "Token expired" });
     }
-    return res.status(500).json({ message: "Server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
-
 
 export { registerUser, login, getUserData };

@@ -9,16 +9,18 @@ const addBlog = async (req, res) => {
       title,
       content,
       image,
-      blogid: userid,
+      owner: userid,
     });
 
     res.status(201).json({
       message: "Blog created successfully",
+      blog: newBlog,
     });
   } catch (error) {
     res.status(500).json({ message: "Error creating blog", error });
   }
 };
+
 
 const removeBlog = async (req, res) => {
   const { id } = req.params;

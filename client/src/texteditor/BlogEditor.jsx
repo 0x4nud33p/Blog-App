@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-export default function BlogEditor() {
+export default function BlogEditor({ onContentChange }) {
   const [content, setContent] = useState('');
 
   const handleContentChange = (value) => {
     setContent(value);
+    onContentChange(value);
   };
 
   const modules = {
@@ -28,12 +29,6 @@ export default function BlogEditor() {
         modules={modules}
         className="bg-white text-black"
       />
-      <button 
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-        onClick={() => console.log(content)}
-      >
-        Save Blog
-      </button>
     </div>
   );
 }
