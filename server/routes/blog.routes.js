@@ -11,12 +11,14 @@ import {
 
 const router = Router();
 
-//protected routes
-router.post("/addblog", verifyJWT, addBlog);
-router.post("/removeblog", verifyJWT, removeBlog);
-router.post("/updateblog", verifyJWT, updateBlog);
-router.post("/retrieveblogs", verifyJWT, retrieveBlogs);
-router.post("/retrieveAllBlogs", retrieveAllBlogs);
-router.post("/retrieveLatestBlogs", retrieveLatestBlogs);
+// Protected blog routes
+router.post("/add", verifyJWT, addBlog);
+router.delete("/remove/:id", verifyJWT, removeBlog);
+router.put("/update/:id", verifyJWT, updateBlog);
+router.get("/user/:userid", verifyJWT, retrieveBlogs);
+
+// Public blog routes
+router.get("/all", retrieveAllBlogs);
+router.get("/latest", retrieveLatestBlogs);
 
 export default router;

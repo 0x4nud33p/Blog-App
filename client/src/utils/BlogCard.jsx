@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CalendarDays, Clock, User, ChevronRight, Bookmark, Heart } from 'lucide-react'
 
-export default function BlogCard({ title, excerpt, date, author = "John Doe", readingTime = "3 min", imageUrl = "https://images.unsplash.com/photo-1631451095765-2c91616fc9e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" }) {
+export default function BlogCard({ title, excerpt, date, author, readingTime = "3 min", imageUrl}) {
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
 

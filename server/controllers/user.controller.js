@@ -26,18 +26,23 @@ const registerUser = async (req, res) => {
       profileImage,
     });
 
-    const { password, ...userData } = newUser._doc;
+    
+    const { password: _, ...userData } = newUser._doc;
     res.status(201).json({
       message: "User created successfully",
       user: userData,
     });
   } catch (error) {
-    if (error.code === 11000) {
-      return res.status(409).json({ message: "Email already in use" });
-    }
-    res.status(500).json({ message: "Error creating user", error });
+    console.error("Error during user creation:", error);
+
+    res.status(500).json({
+      message: "Error creating user",
+      error: error.message || "Unknown error",
+      details: error.errors || {},
+    });
   }
 };
+
 
 const login = async (req, res) => {
   const { email, password } = req.body;
