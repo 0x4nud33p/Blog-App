@@ -88,13 +88,13 @@ const updateBlog = async (req, res) => {
  * Retrieves all blogs for a specific user by their user ID.
  */
 const retrieveBlogs = async (req, res) => {
-  const { userid } = req.params; 
+  const { userid } = req.params;
 
   try {
-    const blogs = await Blog.find({ owner: userid })
-      .populate("owner", "username")
-      .exec();
-
+    const blogs = await Blog.find({ owner: userid }).populate(
+      "owner",
+      "username"
+    ); 
     if (blogs.length === 0) {
       return res
         .status(404)
@@ -111,12 +111,14 @@ const retrieveBlogs = async (req, res) => {
 };
 
 
+
 /**
  * Retrieves all blogs in the database.
  */
 const retrieveAllBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find();
+    const blogs = await Blog.find().populate("owner", "username");
+
     if (blogs.length === 0) {
       return res.status(404).json({ message: "No blogs available." });
     }
@@ -129,6 +131,7 @@ const retrieveAllBlogs = async (req, res) => {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
+
 
 /**
  * Retrieves the latest blogs sorted by creation date.

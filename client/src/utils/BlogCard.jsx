@@ -1,9 +1,18 @@
 import React, { useState } from 'react'
 import { CalendarDays, Clock, User, ChevronRight, Bookmark, Heart } from 'lucide-react'
 
-export default function BlogCard({ title, excerpt, date, author, readingTime = "3 min", imageUrl}) {
+export default function BlogCard({ title, excerpt, date, author, imageUrl}) {
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
+
+  const calculateReadingTime = (text) => {
+    const wordsPerMinute = 200;
+    const wordCount = text ? text.split(" ").length : 0;
+    const minutes = Math.ceil(wordCount / wordsPerMinute);
+    return `${minutes} min`;
+  };
+
+  const readingTime = calculateReadingTime(excerpt);
 
   return (
     <div className="overflow-hidden rounded-lg text-white bg-card text-card-foreground shadow-md transition-all hover:shadow-lg bg-white bg-opacity-10 p-4 hover:bg-opacity-20">
@@ -18,12 +27,15 @@ export default function BlogCard({ title, excerpt, date, author, readingTime = "
         <div className="flex-1 flex flex-col justify-between">
           <div>
             <h3 className="text-xl font-bold tracking-tight text-foreground mb-2">{title}</h3>
-            <p className="text-sm text-muted-foreground line-clamp-3">{excerpt}</p>
+            <p
+              className="text-sm text-muted-foreground line-clamp-3"
+              dangerouslySetInnerHTML={{ __html: excerpt }}
+            ></p>
           </div>
           <div className="mt-4">
             <div className="flex flex-wrap items-center gap-4 mb-4">
               <div className="flex items-center space-x-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-muted-foreground">
+                <div className="flex items-center justify-center rounded-full bg-muted text-muted-foreground">
                   <User className="h-4 w-4" />
                 </div>
                 <span className="text-sm font-medium">{author}</span>

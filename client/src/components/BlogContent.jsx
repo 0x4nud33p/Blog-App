@@ -48,12 +48,12 @@ function BlogContent({ methodtype }) {
             {blogPosts.length > 0 ? (
               blogPosts.map((post) => (
                 <BlogCard
-                  key={post._id}
-                  title={post.title}
-                  imageUrl={post.image}
-                  excerpt={post.content}
-                  date={new Date(post.createdAt).toLocaleDateString()}
-                  author={post.owner.username}
+                key={post._id}
+                title={post.title}
+                imageUrl={post.image}
+                excerpt={post.content}
+                date={new Date(post.createdAt).toLocaleDateString()}
+                author={post.owner.username}
                 />
               ))
             ) : (

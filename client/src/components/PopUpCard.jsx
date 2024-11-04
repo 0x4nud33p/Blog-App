@@ -32,7 +32,6 @@ export default function PopUpCard({ onClose }) {
     setIsLoading(true);
 
     try {
-      // Upload image to Cloudinary
       const imageData = new FormData();
       imageData.append("file", blogImage);
       imageData.append("upload_preset", "blogmediaupload");
@@ -47,7 +46,7 @@ export default function PopUpCard({ onClose }) {
         throw new Error("Image upload failed.");
       }
 
-      // Retrieve token and user details
+    
       const userDetails = JSON.parse(localStorage.getItem("userDetails") || "{}");
       const token = localStorage.getItem("token");
 
@@ -55,7 +54,6 @@ export default function PopUpCard({ onClose }) {
         throw new Error("User not authenticated.");
       }
 
-      // Send blog data to server
       const response = await axios.post(
         `http://localhost:3000/user/blog/add?userid=${userDetails._id}`,
         {
@@ -70,7 +68,7 @@ export default function PopUpCard({ onClose }) {
 
       if (response?.status === 201) {
         toast.success("Blog saved successfully!");
-        toast.dismiss(loadingToast); // Dismiss loading toast upon success
+        toast.dismiss(loadingToast);
         onClose();
       } else {
         throw new Error("Failed to save blog.");
@@ -108,7 +106,7 @@ export default function PopUpCard({ onClose }) {
               required
             />
 
-            <BlogEditor onContentChange={handleContentChange} />  {/* Corrected prop */}
+            <BlogEditor onContentChange={handleContentChange} />
 
             <input
               type="file"
