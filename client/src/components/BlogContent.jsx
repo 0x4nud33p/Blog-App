@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import BlogCard from '../utils/BlogCard.jsx';
+import BlogCard from '../utils/BlogCard';
 import axios from 'axios';
-import PencilAnimation from '../utils/PencilAnimation.jsx';
+import PencilAnimation from '../utils/PencilAnimation';
 
 function BlogContent({ methodtype }) {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -48,12 +48,12 @@ function BlogContent({ methodtype }) {
             {blogPosts.length > 0 ? (
               blogPosts.map((post) => (
                 <BlogCard
-                key={post._id}
-                title={post.title}
-                imageUrl={post.image}
-                excerpt={post.content}
-                date={new Date(post.createdAt).toLocaleDateString()}
-                author={post.owner.username}
+                  key={post._id}
+                  title={post.title}
+                  imageUrl={post.image}
+                  excerpt={post.content}
+                  date={new Date(post.createdAt).toLocaleDateString()}
+                  author={post.owner.username}
                 />
               ))
             ) : (

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { CalendarDays, Clock, User, ChevronRight, Bookmark, Heart } from 'lucide-react'
+import React, { useState } from 'react';
+import { CalendarDays, Clock, User, ChevronRight, Bookmark, Heart } from 'lucide-react';
 
-export default function BlogCard({ title, excerpt, date, author, imageUrl}) {
-  const [isBookmarked, setIsBookmarked] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
+export default function BlogCard({ title, excerpt, date, author, imageUrl }) {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const calculateReadingTime = (text) => {
     const wordsPerMinute = 200;
@@ -54,7 +54,7 @@ export default function BlogCard({ title, excerpt, date, author, imageUrl}) {
                 Read more
                 <ChevronRight className="ml-1 h-4 w-4" />
               </span>
-              <div className="flex items-center space-x-2 ">
+              <div className="flex items-center space-x-2">
                 <button
                   onClick={() => setIsBookmarked(!isBookmarked)}
                   className={`p-1 rounded-full ${isBookmarked ? 'bg-primary text-primary-foreground' : 'bg-black bg-opacity-50 text-white'} hover:bg-opacity-75 transition-colors`}
@@ -64,7 +64,7 @@ export default function BlogCard({ title, excerpt, date, author, imageUrl}) {
                 </button>
                 <button
                   onClick={() => setIsLiked(!isLiked)}
-                  className={`p-1 rounded-full ${isLiked ? 'bg-red-500 text-white' : 'bg-black bg-opacity-50 text-white'} hover:bg-opacity-75 transition-colors`}
+                  className={`p-1 rounded-full ${isLiked ? 'bg-red-500 text-red-500' : 'bg-black bg-opacity-50 text-white'} hover:bg-opacity-75 transition-colors`}
                   aria-label={isLiked ? "Unlike" : "Like"}
                 >
                   <Heart className="h-4 w-4" />
@@ -75,5 +75,5 @@ export default function BlogCard({ title, excerpt, date, author, imageUrl}) {
         </div>
       </div>
     </div>
-  )
+  );
 }
