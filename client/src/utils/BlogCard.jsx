@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { CalendarDays, Clock, User, ChevronRight, Bookmark, Heart } from 'lucide-react';
+import { CalendarDays, Clock, User, ChevronRight } from 'lucide-react';
+import { FaBookmark, FaRegBookmark, FaHeart, FaRegHeart } from 'react-icons/fa';
 
-export default function BlogCard({ title, excerpt, date, author, imageUrl }) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-
+export default function BlogCard({ title, excerpt, date, author, imageUrl, isBookmarked, isLiked, onBookmarkToggle, onLikeToggle }) {
   const calculateReadingTime = (text) => {
     const wordsPerMinute = 200;
     const wordCount = text ? text.split(" ").length : 0;
@@ -56,18 +54,18 @@ export default function BlogCard({ title, excerpt, date, author, imageUrl }) {
               </span>
               <div className="flex items-center space-x-2">
                 <button
-                  onClick={() => setIsBookmarked(!isBookmarked)}
+                  onClick={onBookmarkToggle}
                   className={`p-1 rounded-full ${isBookmarked ? 'bg-primary text-primary-foreground' : 'bg-black bg-opacity-50 text-white'} hover:bg-opacity-75 transition-colors`}
                   aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
                 >
-                  <Bookmark className="h-4 w-4" />
+                  {isBookmarked ? <FaBookmark className="h-4 w-4" /> : <FaRegBookmark className="h-4 w-4" />}
                 </button>
                 <button
-                  onClick={() => setIsLiked(!isLiked)}
+                  onClick={onLikeToggle}
                   className={`p-1 rounded-full ${isLiked ? 'bg-red-500 text-red-500' : 'bg-black bg-opacity-50 text-white'} hover:bg-opacity-75 transition-colors`}
                   aria-label={isLiked ? "Unlike" : "Like"}
                 >
-                  <Heart className="h-4 w-4" />
+                  {isLiked ? <FaHeart className="h-4 w-4" /> : <FaRegHeart className="h-4 w-4" />}
                 </button>
               </div>
             </div>

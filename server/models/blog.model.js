@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import { User } from "../models/user.model.js";
 
 const blogSchema = new Schema(
   {
@@ -19,8 +18,10 @@ const blogSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    bookmarks: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    likeCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

@@ -1,5 +1,6 @@
 import { Blog } from "../models/blog.model.js";
-
+import { Like } from "../models/like.model.js";
+import { Bookmark } from '../models/bookmark.model.js';
 /**
  * Adds a new blog post.
  * Requires: `heading`, `content`, `image` in body and `userid` in query parameters.
@@ -152,19 +153,19 @@ const retrieveLatestBlogs = async (req, res) => {
   }
 };
 
-const retriveLikes =  async (req, res) => {
+const retriveLikes = async (req, res) => {
   const { id } = req.params;
-  const userId = req.user._id; // Ensure `req.user` is populated via auth middleware
+  const userId = req.user._id;
 
   try {
     const blog = await Blog.findById(id);
-    if (blog.likes.includes(userId)) {
-      blog.likes.pull(userId); // Unlike
-    } else {
-      blog.likes.push(userId); // Like
-    }
-    await blog.save();
-    res.status(200).json({ success: true, likes: blog.likes.length });
+    const userLiked = blog.likes.includes(userId);
+
+    res.status(200).json({
+      success: true,
+      likes: blog.likes.length,
+      userLiked,
+    });
   } catch (error) {
     res
       .status(500)
@@ -178,19 +179,20 @@ const retriveBookmarks = async (req, res) => {
 
   try {
     const blog = await Blog.findById(id);
-    if (blog.bookmarks.includes(userId)) {
-      blog.bookmarks.pull(userId); // Remove bookmark
-    } else {
-      blog.bookmarks.push(userId); // Add bookmark
-    }
-    await blog.save();
-    res.status(200).json({ success: true, bookmarks: blog.bookmarks.length });
+    const userBookmarked = blog.bookmarks.includes(userId);
+
+    res.status(200).json({
+      success: true,
+      bookmarks: blog.bookmarks.length,
+      userBookmarked,
+    });
   } catch (error) {
     res
       .status(500)
       .json({ success: false, error: "Could not update bookmark status" });
   }
 };
+
 
 
 
