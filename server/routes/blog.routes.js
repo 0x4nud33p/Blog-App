@@ -7,6 +7,8 @@ import {
   retrieveBlogs,
   retrieveAllBlogs,
   retrieveLatestBlogs,
+  retriveLikes,
+  retriveBookmarks,
 } from "../controllers/blog.controller.js";
 
 const router = Router();
@@ -16,6 +18,8 @@ router.post("/add", verifyJWT, addBlog);
 router.delete("/remove/:id", verifyJWT, removeBlog);
 router.put("/update/:id", verifyJWT, updateBlog);
 router.get("/user/:userid", verifyJWT, retrieveBlogs);
+router.get("/blog/:id/like", verifyJWT, retriveLikes);
+router.get("/blog/:id/bookmark", verifyJWT, retriveBookmarks);
 
 // Public blog routes
 router.get("/all", retrieveAllBlogs);

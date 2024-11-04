@@ -152,6 +152,48 @@ const retrieveLatestBlogs = async (req, res) => {
   }
 };
 
+const retriveLikes =  async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user._id; // Ensure `req.user` is populated via auth middleware
+
+  try {
+    const blog = await Blog.findById(id);
+    if (blog.likes.includes(userId)) {
+      blog.likes.pull(userId); // Unlike
+    } else {
+      blog.likes.push(userId); // Like
+    }
+    await blog.save();
+    res.status(200).json({ success: true, likes: blog.likes.length });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: false, error: "Could not update like status" });
+  }
+};
+
+const retriveBookmarks = async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user._id;
+
+  try {
+    const blog = await Blog.findById(id);
+    if (blog.bookmarks.includes(userId)) {
+      blog.bookmarks.pull(userId); // Remove bookmark
+    } else {
+      blog.bookmarks.push(userId); // Add bookmark
+    }
+    await blog.save();
+    res.status(200).json({ success: true, bookmarks: blog.bookmarks.length });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: false, error: "Could not update bookmark status" });
+  }
+};
+
+
+
 export {
   addBlog,
   removeBlog,
@@ -159,4 +201,6 @@ export {
   retrieveBlogs,
   retrieveAllBlogs,
   retrieveLatestBlogs,
+  retriveLikes,
+  retriveBookmarks,
 };
