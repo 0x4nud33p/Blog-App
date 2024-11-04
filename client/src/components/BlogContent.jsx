@@ -3,7 +3,7 @@ import BlogCard from '../utils/BlogCard';
 import axios from 'axios';
 import PencilAnimation from '../utils/PencilAnimation';
 
-function BlogContent({ methodtype }) {
+function BlogContent({ methodtype, selectedCategory }) {
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('token');
@@ -32,7 +32,11 @@ function BlogContent({ methodtype }) {
 
   useEffect(() => {
     getBlogs();
-  }, []);
+  }, [methodtype]);
+
+  const filteredPosts = selectedCategory
+    ? blogPosts.filter(post => post.category === selectedCategory) 
+    : blogPosts;
 
   return (
     <div>
@@ -45,8 +49,8 @@ function BlogContent({ methodtype }) {
           </div>
         ) : (
           <div className="space-y-8">
-            {blogPosts.length > 0 ? (
-              blogPosts.map((post) => (
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => (
                 <BlogCard
                   key={post._id}
                   title={post.title}
