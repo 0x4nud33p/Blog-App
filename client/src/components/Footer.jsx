@@ -29,7 +29,7 @@ export default function Footer() {
               <Link to="/categories" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Categories</Link>
             </li>
             <li>
-              <Link to="/bookmarks" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Bookmarks</Link>
+              {/* <Link to="/bookmarks" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Bookmarks</Link> */}
             </li>
             <li>
               <Link to="/profile" className="text-[#AEAEAE] hover:text-[#D3B0FF]">Profile</Link>

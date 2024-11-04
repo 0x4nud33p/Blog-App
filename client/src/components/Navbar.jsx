@@ -12,7 +12,7 @@ const Navbar = () => {
   const blogLinks = [
     { name: 'Blogs', path: '/blogs' },
     { name: 'Categories', path: '/categories' },
-    { name: 'Bookmarks', path: '/bookmarks' },
+    // { name: 'Bookmarks', path: '/bookmarks' },
     { name: 'Profile', path: '/Profile' },
   ];
 

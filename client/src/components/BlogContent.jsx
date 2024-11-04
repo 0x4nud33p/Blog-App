@@ -10,9 +10,9 @@ function BlogContent({ methodtype, selectedCategory }) {
 
   const getBlogs = async () => {
     const urlMap = {
-      retrieveAllBlogs: 'http://localhost:3000/user/blog/all',
-      retrieveLatestBlogs: 'http://localhost:3000/user/blog/latest',
-      retrieveBlogs: `http://localhost:3000/user/blog/user/${JSON.parse(localStorage.getItem("userDetails"))?._id}`
+      retrieveAllBlogs: `import.meta.env.VITE_PRODUCTION_URL${/user/blog/all}`,
+      retrieveLatestBlogs: `import.meta.env.VITE_PRODUCTION_URL${/user/blog/latest}`,
+      retrieveBlogs: `import.meta.env.VITE_PRODUCTION_URL/user/blog/user/${JSON.parse(localStorage.getItem("userDetails"))?._id}`
     };
     const url = urlMap[methodtype];
 

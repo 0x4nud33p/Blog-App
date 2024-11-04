@@ -55,7 +55,7 @@ export default function PopUpCard({ onClose }) {
       }
 
       const response = await axios.post(
-        `http://localhost:3000/user/blog/add?userid=${userDetails._id}`,
+        `import.meta.env.VITE_PRODUCTION_URL/user/blog/add?userid=${userDetails._id}`,
         {
           heading: blogHeading,
           content: blogContent,

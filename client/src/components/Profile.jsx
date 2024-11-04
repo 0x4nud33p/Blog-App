@@ -22,7 +22,7 @@ function Profile() {
     
     if (token && !storedUser) {
       axios
-        .get('http://localhost:3000/api/user', {
+        .get(`import.meta.env.VITE_PRODUCTION_URL${/api/user}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ function Profile() {
           setEmail(userData.email);
           setUsername(userData.username);
           
-          // Save user details to localStorage
+       
           localStorage.setItem('userDetails', JSON.stringify(userData));
         })
         .catch((error) => console.error('Error fetching user data:', error));
@@ -58,7 +58,7 @@ function Profile() {
       try {
         const updatedUser = { bio, profileImage: image };
         await axios.put(
-          'http://localhost:3000/api/user/update',
+          `import.meta.env.VITE_PRODUCTION_URL${/api/user/update}`,
           updatedUser,
           { headers: { Authorization: `Bearer ${token}` } }
         );
