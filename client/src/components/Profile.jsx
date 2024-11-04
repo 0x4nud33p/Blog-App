@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import axios from 'axios';
+import toast from 'react-hot-toast'; // Assuming you are using react-hot-toast for notifications
 
 function Profile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -22,7 +23,7 @@ function Profile() {
     
     if (token && !storedUser) {
       axios
-        .get(`import.meta.env.VITE_PRODUCTION_URL${/api/user}`, {
+        .get(`${import.meta.env.VITE_PRODUCTION_URL}/api/user`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -35,12 +36,11 @@ function Profile() {
           setEmail(userData.email);
           setUsername(userData.username);
           
-       
           localStorage.setItem('userDetails', JSON.stringify(userData));
         })
         .catch((error) => console.error('Error fetching user data:', error));
     }
-  }, []);
+  }, [token]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -58,7 +58,7 @@ function Profile() {
       try {
         const updatedUser = { bio, profileImage: image };
         await axios.put(
-          `import.meta.env.VITE_PRODUCTION_URL${/api/user/update}`,
+          `${import.meta.env.VITE_PRODUCTION_URL}/api/user/update`,
           updatedUser,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -69,8 +69,11 @@ function Profile() {
           email,
           username,
         }));
+
+        toast.success("Profile updated successfully!"); // Feedback on success
       } catch (error) {
         console.error('Error updating profile:', error);
+        toast.error("Failed to update profile. Please try again."); // Feedback on failure
       }
     }
     setIsEditing((prev) => !prev);

@@ -55,7 +55,7 @@ export default function PopUpCard({ onClose }) {
       }
 
       const response = await axios.post(
-        `import.meta.env.VITE_PRODUCTION_URL/user/blog/add?userid=${userDetails._id}`,
+        `${import.meta.env.VITE_PRODUCTION_URL}/user/blog/add?userid=${userDetails._id}`,
         {
           heading: blogHeading,
           content: blogContent,
@@ -66,7 +66,6 @@ export default function PopUpCard({ onClose }) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
       if (response?.status === 201) {
         toast.success("Blog saved successfully!");
         onClose();

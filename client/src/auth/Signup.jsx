@@ -56,13 +56,12 @@ export default function Signup() {
         const imageUrl = imageUploadResponse.data.secure_url;
         console.log(imageUrl);
         
-        const response = await axios.post(`import.meta.env.VITE_PRODUCTION_URL${/api/auth/signup}`, {
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-          profileImage: imageUrl,
-        });
-
+        const response = await axios.post(`${import.meta.env.VITE_PRODUCTION_URL}/api/auth/signup`, {
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+            profileImage: imageUrl,
+          });
         if (response.status === 201) {
           toast.success("Signup successful! Please Login");
           setFormError(null);

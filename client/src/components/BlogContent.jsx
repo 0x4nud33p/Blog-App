@@ -9,11 +9,15 @@ function BlogContent({ methodtype, selectedCategory }) {
   const token = localStorage.getItem('token');
 
   const getBlogs = async () => {
+    const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    const userId = userDetails ? userDetails._id : '';
+
     const urlMap = {
-      retrieveAllBlogs: `import.meta.env.VITE_PRODUCTION_URL${/user/blog/all}`,
-      retrieveLatestBlogs: `import.meta.env.VITE_PRODUCTION_URL${/user/blog/latest}`,
-      retrieveBlogs: `import.meta.env.VITE_PRODUCTION_URL/user/blog/user/${JSON.parse(localStorage.getItem("userDetails"))?._id}`
+      retrieveAllBlogs: `${import.meta.env.VITE_PRODUCTION_URL}/user/blog/all`,
+      retrieveLatestBlogs: `${import.meta.env.VITE_PRODUCTION_URL}/user/blog/latest`,
+      retrieveBlogs: `${import.meta.env.VITE_PRODUCTION_URL}/user/blog/user/${userId}`
     };
+    
     const url = urlMap[methodtype];
 
     try {

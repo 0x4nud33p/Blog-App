@@ -38,13 +38,12 @@ export default function Login() {
 
       try {
         const response = await axios.post(
-          `import.meta.env.VITE_PRODUCTION_URL${/api/auth/login}`,
-          {
-            email: formData.email,
-            password: formData.password,
-          }
-        );
-
+        `${import.meta.env.VITE_PRODUCTION_URL}/api/auth/login`,
+        {
+          email: formData.email,
+          password: formData.password,
+        }
+      );
         if (response.status === 200) {
           toast.dismiss(loadingToast);
           toast.success("Sign in successful");
