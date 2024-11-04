@@ -7,6 +7,7 @@ export default function PopUpCard({ onClose }) {
   const [blogImage, setBlogImage] = useState(null);
   const [blogHeading, setBlogHeading] = useState("");
   const [blogContent, setBlogContent] = useState("");
+  const [category, setCategory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleImageChange = (e) => {
@@ -23,7 +24,7 @@ export default function PopUpCard({ onClose }) {
   const onSubmit = useCallback(async (e) => {
     e.preventDefault();
 
-    if (!blogHeading || !blogContent || !blogImage) {
+    if (!blogHeading || !blogContent || !blogImage || !category) {
       toast.error("All fields are required.");
       return;
     }
@@ -46,7 +47,6 @@ export default function PopUpCard({ onClose }) {
         throw new Error("Image upload failed.");
       }
 
-    
       const userDetails = JSON.parse(localStorage.getItem("userDetails") || "{}");
       const token = localStorage.getItem("token");
 
@@ -60,6 +60,7 @@ export default function PopUpCard({ onClose }) {
           heading: blogHeading,
           content: blogContent,
           image: imageUrl,
+          category: category,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -68,7 +69,6 @@ export default function PopUpCard({ onClose }) {
 
       if (response?.status === 201) {
         toast.success("Blog saved successfully!");
-        toast.dismiss(loadingToast);
         onClose();
       } else {
         throw new Error("Failed to save blog.");
@@ -80,7 +80,7 @@ export default function PopUpCard({ onClose }) {
       toast.dismiss(loadingToast);
       setIsLoading(false);
     }
-  }, [blogHeading, blogContent, blogImage, onClose]);
+  }, [blogHeading, blogContent, blogImage, category, onClose]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-10">
@@ -105,6 +105,23 @@ export default function PopUpCard({ onClose }) {
               className="w-full p-2 border rounded-md text-black"
               required
             />
+
+            <label htmlFor="category" className="block text-gray-700 font-medium">Category:</label>
+            <select
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="bg-gray-200 border border-gray-300 rounded p-2 w-full text-black"
+              required
+            >
+              <option value="" disabled>Select a category</option>
+              <option value="Tech & Programming">Tech & Programming</option>
+              <option value="Design & UX/UI">Design & UX/UI</option>
+              <option value="Career & Development">Career & Development</option>
+              <option value="Personal Development">Personal Development</option>
+              <option value="Blogging & Writing">Blogging & Writing</option>
+              <option value="Trending & Miscellaneous">Trending & Miscellaneous</option>
+            </select>
 
             <BlogEditor onContentChange={handleContentChange} />
 

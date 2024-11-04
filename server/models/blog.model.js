@@ -22,6 +22,10 @@ const blogSchema = new Schema(
       type: Number,
       default: 0,
     },
+    category: {
+      type: String, 
+      required: true, 
+    },
   },
   {
     timestamps: true,

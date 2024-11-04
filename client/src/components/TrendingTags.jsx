@@ -24,4 +24,4 @@ function TrendingTags() {
   )
 }
 
-export default TrendingTags
+export default TrendingTags 

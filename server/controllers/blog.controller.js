@@ -1,35 +1,6 @@
 import { Blog } from "../models/blog.model.js";
 import { Like } from "../models/like.model.js";
 import { Bookmark } from '../models/bookmark.model.js';
-/**
- * Adds a new blog post.
- * Requires: `heading`, `content`, `image` in body and `userid` in query parameters.
- */
-const addBlog = async (req, res) => {
-  const { image, heading, content } = req.body;
-  const { userid } = req.query;
-
-  if (!image || !heading || !content) {
-    return res.status(400).json({ message: "Missing required fields." });
-  }
-
-  try {
-    const newBlog = await Blog.create({
-      title: heading,
-      content,
-      image,
-      owner: userid,
-    });
-    res.status(201).json({
-      message: "Blog created successfully",
-      blog: newBlog,
-    });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error creating blog", error: error.message });
-  }
-};
 
 /**
  * Deletes an existing blog post by ID.
@@ -56,17 +27,47 @@ const removeBlog = async (req, res) => {
 };
 
 /**
+ * Adds a new blog post.
+ * Requires: `heading`, `content`, `image`, `category` in body and `userid` in query parameters.
+ */
+const addBlog = async (req, res) => {
+  const { image, heading, content, category } = req.body; // Added category
+
+  if (!image || !heading || !content || !category) { // Check for category
+    return res.status(400).json({ message: "Missing required fields." });
+  }
+
+  try {
+    const newBlog = await Blog.create({
+      title: heading,
+      content,
+      image,
+      owner: req.query.userid,
+      category, // Save the category
+    });
+    res.status(201).json({
+      message: "Blog created successfully",
+      blog: newBlog,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error creating blog", error: error.message });
+  }
+};
+
+/**
  * Updates an existing blog post by ID.
- * Accepts updated `title`, `content`, and `image` in the request body.
+ * Accepts updated `title`, `content`, `image`, and `category` in the request body.
  */
 const updateBlog = async (req, res) => {
   const { id } = req.params;
-  const { title, content, image } = req.body;
+  const { title, content, image, category } = req.body; // Added category
 
   try {
     const updatedBlog = await Blog.findByIdAndUpdate(
       id,
-      { title, content, image },
+      { title, content, image, category }, // Include category
       { new: true, runValidators: true }
     );
 
@@ -84,6 +85,7 @@ const updateBlog = async (req, res) => {
       .json({ message: "Error updating blog", error: error.message });
   }
 };
+
 
 /**
  * Retrieves all blogs for a specific user by their user ID.
