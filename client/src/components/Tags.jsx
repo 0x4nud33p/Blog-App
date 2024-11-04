@@ -1,17 +1,16 @@
 import React from 'react';
 import '../styles/categories.css';
+import {hashtags} from '../utils/hashtags.js';
 
-const tags = [
-  'JS', 'wordpress', 'uiverse', 'Css', 'html', 'go', 'java', 'ux/ui', 'figma',
-];
+
 
 export default function Tags() {
   return (
     <div className="card mt-20">
       <div className="card__tags">
         <ul className="tag">
-          {tags.map((tag, index) => (
-            <li key={index} className="tag__name">{tag}</li>
+          {hashtags.map((tag, index) => (
+            <li key={tag} className="tag__name">{tag}</li>
           ))}
         </ul>
       </div>

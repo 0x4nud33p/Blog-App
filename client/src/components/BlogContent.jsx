@@ -40,7 +40,7 @@ function BlogContent({ methodtype }) {
         <style jsx>{`::-webkit-scrollbar { display: none; }`}</style>
         <h2 className="text-2xl font-semibold mb-6">Latest Posts</h2>
         {loading ? (
-          <div className="flex justify-center items-center h-48">
+          <div className="flex justify-center items-center h-48"> 
             <PencilAnimation />
           </div>
         ) : (
