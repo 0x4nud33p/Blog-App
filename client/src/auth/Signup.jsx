@@ -54,7 +54,6 @@ export default function Signup() {
         );
 
         const imageUrl = imageUploadResponse.data.secure_url;
-        console.log(imageUrl);
         
         const response = await axios.post(`${import.meta.env.VITE_PRODUCTION_URL}/api/auth/signup`, {
             username: formData.username,

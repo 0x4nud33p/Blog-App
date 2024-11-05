@@ -43,7 +43,7 @@ const addBlog = async (req, res) => {
       content,
       image,
       owner: req.query.userid,
-      category, // Save the category
+      category,
     });
     res.status(201).json({
       message: "Blog created successfully",
@@ -62,12 +62,12 @@ const addBlog = async (req, res) => {
  */
 const updateBlog = async (req, res) => {
   const { id } = req.params;
-  const { title, content, image, category } = req.body; // Added category
+  const { title, content, image, category } = req.body;
 
   try {
     const updatedBlog = await Blog.findByIdAndUpdate(
       id,
-      { title, content, image, category }, // Include category
+      { title, content, image, category },
       { new: true, runValidators: true }
     );
 

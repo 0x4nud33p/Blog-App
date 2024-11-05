@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import axios from 'axios';
-import toast from 'react-hot-toast'; // Assuming you are using react-hot-toast for notifications
+import toast from 'react-hot-toast';
 
 function Profile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -11,7 +11,6 @@ function Profile() {
   const [image, setImage] = useState(null);
   const token = localStorage.getItem('token');
 
-  // Load user details from localStorage when component mounts
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('userDetails'));
     if (storedUser) {
@@ -63,17 +62,17 @@ function Profile() {
           { headers: { Authorization: `Bearer ${token}` } }
         );
         
-        // Update localStorage with new user details
+  
         localStorage.setItem('userDetails', JSON.stringify({
           ...updatedUser,
           email,
           username,
         }));
 
-        toast.success("Profile updated successfully!"); // Feedback on success
+        toast.success("Profile updated successfully!"); 
       } catch (error) {
         console.error('Error updating profile:', error);
-        toast.error("Failed to update profile. Please try again."); // Feedback on failure
+        toast.error("Failed to update profile. Please try again."); 
       }
     }
     setIsEditing((prev) => !prev);
@@ -81,7 +80,7 @@ function Profile() {
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('userDetails'); // Remove user details on sign-out
+    localStorage.removeItem('userDetails');
   };
 
   return (

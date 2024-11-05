@@ -16,7 +16,6 @@ export default function App() {
       <Route path="/profile" element={<Profile />}/>
       <Route path="/auth/signup" element={<Signup />}/>
       <Route path="/auth/login" element={<Login />}/>
-      {/* other routes goes here */}
       </Route>
     </Routes>
     </BrowserRouter>

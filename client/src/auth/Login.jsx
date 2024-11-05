@@ -48,7 +48,7 @@ export default function Login() {
           toast.dismiss(loadingToast);
           toast.success("Sign in successful");
           localStorage.setItem('token',response.data.token)
-          navigate('/');
+          navigate('/profile');
         }
       } catch (error) {
         console.error("Signin error:", error);
