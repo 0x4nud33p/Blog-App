@@ -3,6 +3,7 @@ import { BlogEditor } from "../../Exports.js";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+
 export default function PopUpCard({ onClose }) {
   const [blogImage, setBlogImage] = useState(null);
   const [blogHeading, setBlogHeading] = useState("");
@@ -119,7 +120,12 @@ export default function PopUpCard({ onClose }) {
               <option value="Career & Development">Career & Development</option>
               <option value="Personal Development">Personal Development</option>
               <option value="Blogging & Writing">Blogging & Writing</option>
-              <option value="Trending & Miscellaneous">Trending & Miscellaneous</option>
+              <option value="Health & Wellness">Health & Wellness</option>
+              <option value="Finance & Investing">Finance & Investing"</option>
+              <option value="Travel & Adventure">Travel & Adventure</option>
+              <option value="Food & Cooking">Food & Cooking</option>
+              <option value="Fitness & Sports">Fitness & Sports</option>
+              <option value="Arts & Culture">Arts & Culture</option>
             </select>
 
             <BlogEditor onContentChange={handleContentChange} />

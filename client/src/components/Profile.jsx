@@ -84,7 +84,7 @@ function Profile() {
   };
 
   return (
-    <div className="bg-gradient-to-b from-[#2F2B68] via-[#312B65] to-[#5f1831] mt-[80px] flex justify-center p-4">
+    <div className="bg-gradient-to-b from-[#2F2B68] via-[#312B65] to-[#5f1831] mt-[80px] pt-[60px] flex justify-center p-4">
       <div className="rounded-lg bg-white bg-opacity-10 shadow-lg p-6 w-full max-w-md hover:bg-opacity-20 transition duration-300">
         <div className="flex items-center mb-4">
           <input

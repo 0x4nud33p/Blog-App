@@ -17,7 +17,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-gradient-to-b from-[#2F2B68] via-[#2F2B68] to-[#2F2B68] fixed w-full top-0 z-20 backdrop-filter backdrop-blur-sm shadow-lg">
+    <nav className="bg-gradient-to-b from-[#2F2B68] via-[#2F2B68] to-[#2F2B68] fixed w-full top-0 backdrop-filter backdrop-blur-sm shadow-lg">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <Toaster />
         <div className="relative flex items-center justify-between h-16">

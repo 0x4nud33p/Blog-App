@@ -43,33 +43,33 @@ function BlogContent({ methodtype, selectedCategory }) {
     : blogPosts;
 
   return (
-    <div>
-      <div className="w-full lg:h-[calc(100vh-5rem)] overflow-y-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-        <style jsx>{`::-webkit-scrollbar { display: none; }`}</style>
-        <h2 className="text-2xl font-semibold mb-6">Latest Posts</h2>
-        {loading ? (
-          <div className="flex justify-center items-center h-48"> 
-            <PencilAnimation />
-          </div>
-        ) : (
-          <div className="space-y-8">
-            {filteredPosts.length > 0 ? (
-              filteredPosts.map((post) => (
-                <BlogCard
-                  key={post._id}
-                  title={post.title}
-                  imageUrl={post.image}
-                  excerpt={post.content}
-                  date={new Date(post.createdAt).toLocaleDateString()}
-                  author={post.owner.username}
-                />
-              ))
-            ) : (
-              <p>No blogs available.</p>
-            )}
-          </div>
-        )}
-      </div>
+    <div className="w-full overflow-y-auto lg:h-[calc(100vh-5rem)]" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <style jsx>{`::-webkit-scrollbar { display: none; }`}</style>
+      <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-center"> 
+        Latest Posts
+      </h2>
+      {loading ? (
+        <div className="flex justify-center items-center h-48"> 
+          <PencilAnimation />
+        </div>
+      ) : (
+        <div className="space-y-6 sm:space-y-8">
+          {filteredPosts.length > 0 ? (
+            filteredPosts.map((post) => (
+              <BlogCard
+                key={post._id}
+                title={post.title}
+                imageUrl={post.image}
+                excerpt={post.content}
+                date={new Date(post.createdAt).toLocaleDateString()}
+                author={post.owner.username}
+              />
+            ))
+          ) : (
+            <p className="text-center">No blogs available.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
