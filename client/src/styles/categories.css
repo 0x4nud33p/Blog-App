@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 600px;
   margin: 20px auto;
-  background: linear-gradient(to bottom, #2f2b68, #2f2b68, #2f2b68);
+  background: #0b0c14;
   padding: 15px;
   display: flex;
   flex-wrap: wrap;
@@ -33,7 +33,7 @@
 
 .tag__name:hover {
   transform: scale(1.05);
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: #292c3e;
 }
 
 @media (max-width: 640px) {

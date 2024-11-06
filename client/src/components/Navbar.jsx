@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaEnvelope } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 import { HiOutlineMenuAlt1 } from 'react-icons/hi';
 import toast, { Toaster } from 'react-hot-toast';
 import { GiOpenBook } from 'react-icons/gi';
@@ -17,7 +17,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-gradient-to-b from-[#2F2B68] via-[#2F2B68] to-[#2F2B68] fixed w-full top-0 backdrop-filter backdrop-blur-sm shadow-lg">
+    <nav className="bg-[#0b0c14] fixed w-full top-0 font-Cabin">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <Toaster />
         <div className="relative flex items-center justify-between h-16">
@@ -44,7 +44,7 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     to={link.path}
-                    className="text-white hover:bg-[#61669B] hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-white hover:bg-[#292c3e] hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium"
                   >
                     {link.name}
                   </Link>
@@ -65,7 +65,7 @@ const Navbar = () => {
               href="mailto:info@blogapp.com"
               className="p-1 ml-4 rounded-full text-white hover:text-gray-300"
             >
-              <FaEnvelope className="h-6 w-6" />
+              <FaGithub className="h-6 w-6" />
               <span className="sr-only">Email</span>
             </a>
           </div>
@@ -77,7 +77,7 @@ const Navbar = () => {
             <Link
               key={link.name}
               to={link.path}
-              className="text-white hover:bg-[#61669B] hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
+              className="text-white hover:bg-[#292c3e] hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium"
             >
               {link.name}
             </Link>

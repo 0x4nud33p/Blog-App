@@ -72,7 +72,7 @@ export default function Login() {
   );
 
   return (
-    <div className="bg-gradient-to-b from-[#2F2B68] via-[#312B65] to-[#5f1831] mt-[80px] min-h-[670px]">
+    <div className="bg-[#0b0c14] mt-[80px] min-h-[670px]">
       <div className="mx-auto max-w-[350px] space-y-6 p-4">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl text-white font-bold">Sign In</h1>

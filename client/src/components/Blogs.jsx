@@ -11,7 +11,7 @@ export default function Blogs() {
   const handleClosePopup = () => setIsPopupOpen(false);
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#2F2B68] via-[#312B65] to-[#5f1831] text-white p-8">
+    <div className="min-h-screen bg-[#0b0c14] text-white p-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="mt-20 text-4xl font-bold mb-8 text-center">For You</h1>
         <div className="flex flex-col lg:flex-row gap-8">

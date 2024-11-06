@@ -43,7 +43,7 @@ function BlogContent({ methodtype, selectedCategory }) {
     : blogPosts;
 
   return (
-    <div className="w-full overflow-y-auto lg:h-[calc(100vh-5rem)]" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+    <div className="w-full overflow-y-auto font-Cabin lg:h-[calc(100vh-5rem)]" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
       <style jsx>{`::-webkit-scrollbar { display: none; }`}</style>
       <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-center"> 
         Latest Posts
