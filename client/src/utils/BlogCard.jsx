@@ -13,7 +13,7 @@ export default function BlogCard({ title, excerpt, date, author, imageUrl, isBoo
   const readingTime = calculateReadingTime(excerpt);
 
   return (
-    <div className="overflow-hidden rounded-lg text-white bg-card text-card-foreground shadow-md transition-all hover:shadow-lg bg-white bg-opacity-10 p-4 hover:bg-opacity-20">
+    <div className="overflow-hidden rounded-lg text-white bg-card text-card-foreground shadow-md transition-all hover:shadow-lg bg-[#212431] font-Cabin bg-opacity-10 p-4 hover:bg-opacity-20">
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative w-full sm:w-1/3 flex-shrink-0">
           <img

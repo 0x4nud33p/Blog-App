@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import Button from '../utils/Button.jsx';
 
 function Profile() {
   const [isEditing, setIsEditing] = useState(false);
@@ -19,7 +20,7 @@ function Profile() {
       setEmail(storedUser.email);
       setUsername(storedUser.username);
     }
-    
+
     if (token && !storedUser) {
       axios
         .get(`${import.meta.env.VITE_PRODUCTION_URL}/api/user`, {
@@ -34,7 +35,7 @@ function Profile() {
           setImage(userData.profileImage || '');
           setEmail(userData.email);
           setUsername(userData.username);
-          
+
           localStorage.setItem('userDetails', JSON.stringify(userData));
         })
         .catch((error) => console.error('Error fetching user data:', error));
@@ -61,18 +62,17 @@ function Profile() {
           updatedUser,
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        
-  
+
         localStorage.setItem('userDetails', JSON.stringify({
           ...updatedUser,
           email,
           username,
         }));
 
-        toast.success("Profile updated successfully!"); 
+        toast.success("Profile updated successfully!");
       } catch (error) {
         console.error('Error updating profile:', error);
-        toast.error("Failed to update profile. Please try again."); 
+        toast.error("Failed to update profile. Please try again.");
       }
     }
     setIsEditing((prev) => !prev);
@@ -85,7 +85,7 @@ function Profile() {
 
   return (
     <div className="bg-[#0b0c14] mt-[80px] pt-[60px] flex justify-center p-4">
-      <div className="rounded-lg bg-[#292c3e] shadow-lg p-6 w-full max-w-md hover:bg-opacity-80 transition duration-300">
+      <div className="rounded-lg bg-[#212431] shadow-lg p-6 w-full max-w-md hover:bg-opacity-80 transition duration-300">
         <div className="flex items-center mb-4">
           <input
             type="file"
@@ -118,18 +118,16 @@ function Profile() {
           <p className="text-gray-300 mb-4">Bio: {bio}</p>
         )}
         <div className="flex align-center justify-center space-x-6">
-          <button
+          <Button
             onClick={toggleEdit}
-            className="styled-button text-black bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md transition duration-300"
-          >
-            {isEditing ? 'Save' : 'Edit Profile'}
-          </button>
-          <button
+            text={isEditing ? 'Save' : 'Edit Profile'}
+            className="outline-none"
+          />
+          <Button
             onClick={handleSignOut}
-            className="styled-button text-black bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md transition duration-300"
-          >
-            Sign Out
-          </button>
+            text="Sign Out"
+            className="outline-none"
+          />
         </div>
       </div>
     </div>
