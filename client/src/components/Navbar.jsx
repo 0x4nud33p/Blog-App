@@ -62,11 +62,13 @@ const Navbar = () => {
               <span className="sr-only">Twitter</span>
             </a>
             <a
-              href="mailto:info@blogapp.com"
+              href="https://github.com/anudeep009/Blog-App"
+              target="_blank"
+              rel="noopener noreferrer"
               className="p-1 ml-4 rounded-full text-white hover:text-gray-300"
             >
               <FaGithub className="h-6 w-6" />
-              <span className="sr-only">Email</span>
+              <span className="sr-only">GitHub</span>
             </a>
           </div>
         </div>

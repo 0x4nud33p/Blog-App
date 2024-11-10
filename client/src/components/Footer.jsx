@@ -47,7 +47,7 @@ export default function Footer() {
       </div>
 
       <div className="mt-8 border-t font-Cabin border-gray-700 pt-6 text-center text-xs text-[#AEAEAE]">
-        &copy; 2024 BlogApp. All rights reserved.
+        &copy; 2024 BlogApp. Made with ❤️ by Anudeep. All rights reserved.
       </div>
     </footer>
   );
