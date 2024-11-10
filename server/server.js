@@ -11,7 +11,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: "https://blog-app-coral-one.vercel.app/",
+    origin: "https://blog-app-coral-one.vercel.app",
   })
 );
 
