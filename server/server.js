@@ -11,7 +11,15 @@ connectDB();
 
 app.use(
   cors({
-    origin: "https://blog-app-coral-one.vercel.app",
+    origin: [
+      "https://blog-app-coral-one.vercel.app",
+      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app",
+      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/auth/login",
+      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/auth/signup",
+      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/blogs",
+      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/categories",
+      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/Profile",
+    ],
   })
 );
 
