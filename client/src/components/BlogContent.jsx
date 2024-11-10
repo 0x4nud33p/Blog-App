@@ -62,7 +62,7 @@ function BlogContent({ methodtype, selectedCategory }) {
                 imageUrl={post.image}
                 excerpt={post.content}
                 date={new Date(post.createdAt).toLocaleDateString()}
-                author={post.owner.username}
+                author={post.username}
               />
             ))
           ) : (

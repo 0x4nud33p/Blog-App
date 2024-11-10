@@ -17,7 +17,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-[#0b0c14] fixed w-full top-0 font-Cabin">
+    <nav className="bg-[#0b0c14] fixed w-full top-0 font-Cabin z-10">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <Toaster />
         <div className="relative flex items-center justify-between h-16">

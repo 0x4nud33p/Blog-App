@@ -15,7 +15,7 @@ function TrendingTags() {
                 {trendingHashtags.map((hashtag, index) => (
                   <li key={index} className="flex items-center hover:text-gray-300 cursor-pointer">
                     <Hash className="mr-1" size={16} />
-                    {hashtag.slice(1)}
+                    {hashtag}
                   </li>
                 ))}
               </ul>

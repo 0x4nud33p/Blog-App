@@ -25,7 +25,7 @@ const Home = () => {
         </div>
         <div className="lg:w-1/2 flex justify-center lg:justify-end">
           {/* animation */}
-          {/* <Lottie animationData={animationData} loop={true} className="max-w-full h-auto" /> */}
+          <Lottie animationData={animationData} loop={true} className="max-w-full h-auto" />
         </div>
       </main>
       <footer className="mt-16 py-8 text-center">
