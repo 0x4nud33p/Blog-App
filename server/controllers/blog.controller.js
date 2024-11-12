@@ -31,9 +31,9 @@ const removeBlog = async (req, res) => {
  * Requires: `heading`, `content`, `image`, `category` in body and `userid` in query parameters.
  */
 const addBlog = async (req, res) => {
-  const { image, heading, content, category } = req.body; // Added category
+  const { image, heading, content, category } = req.body; 
 
-  if (!image || !heading || !content || !category) { // Check for category
+  if (!image || !heading || !content || !category) { 
     return res.status(400).json({ message: "Missing required fields." });
   }
 
@@ -155,6 +155,7 @@ const retrieveLatestBlogs = async (req, res) => {
   }
 };
 
+
 const retriveLikes = async (req, res) => {
   const { id } = req.params;
   const userId = req.user._id;
@@ -194,6 +195,7 @@ const retriveBookmarks = async (req, res) => {
       .json({ success: false, error: "Could not update bookmark status" });
   }
 };
+
 
 
 

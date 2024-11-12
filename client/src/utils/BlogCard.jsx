@@ -11,7 +11,9 @@ export default function BlogCard({
   isBookmarked,
   isLiked,
   onBookmarkToggle,
-  onLikeToggle
+  onLikeToggle,
+  likeCount,
+  bookmarkCount,
 }) {
   const [showFullContent, setShowFullContent] = useState(false);
 
@@ -75,6 +77,7 @@ export default function BlogCard({
                 >
                   {isBookmarked ? <FaBookmark className="h-4 w-4" /> : <FaRegBookmark className="h-4 w-4" />}
                 </button>
+                  {bookmarkCount}
                 <button
                   onClick={onLikeToggle}
                   className={`p-1 rounded-full ${isLiked ? 'bg-red-500 text-red-500' : 'bg-black bg-opacity-50 text-white'} hover:bg-opacity-75 transition-colors`}
@@ -82,6 +85,7 @@ export default function BlogCard({
                 >
                   {isLiked ? <FaHeart className="h-4 w-4" /> : <FaRegHeart className="h-4 w-4" />}
                 </button>
+                  {likeCount}
               </div>
             </div>
           </div>

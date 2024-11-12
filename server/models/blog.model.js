@@ -22,6 +22,18 @@ const blogSchema = new Schema(
       type: Number,
       default: 0,
     },
+    bookmarkCount: {
+      type : Number,
+      default : 0,
+    },
+    isLiked : {
+      type : Boolean,
+      default : false,
+    },
+    isBookmarked : {
+      type : Boolean,
+      default : false,
+    },
     category: {
       type: String, 
       required: true, 

@@ -33,15 +33,16 @@ function BlogContent({ methodtype, selectedCategory }) {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     getBlogs();
   }, [methodtype]);
 
   const filteredPosts = selectedCategory
-    ? blogPosts.filter(post => post.category === selectedCategory) 
-    : blogPosts;
-
+  ? blogPosts.filter(post => post.category === selectedCategory) 
+  : blogPosts;
+  
+  console.log(blogPosts);
   return (
     <div className="w-full overflow-y-auto font-Cabin lg:h-[calc(100vh-5rem)]" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
       <style jsx>{`::-webkit-scrollbar { display: none; }`}</style>
@@ -63,6 +64,8 @@ function BlogContent({ methodtype, selectedCategory }) {
                 excerpt={post.content}
                 date={new Date(post.createdAt).toLocaleDateString()}
                 author={post.username}
+                likeCount={post.likeCount}
+                bookmarkCount={post.bookmarkCount}
               />
             ))
           ) : (
