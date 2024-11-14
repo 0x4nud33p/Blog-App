@@ -64,7 +64,6 @@ function BlogContent({ methodtype, selectedCategory }) {
                 excerpt={post.content}
                 date={new Date(post.createdAt).toLocaleDateString()}
                 author={post.username}
-                likeCount={post.likeCount}
                 bookmarkCount={post.bookmarkCount}
               />
             ))

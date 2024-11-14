@@ -1,5 +1,4 @@
 import { Blog } from "../models/blog.model.js";
-import { Like } from "../models/like.model.js";
 import { Bookmark } from '../models/bookmark.model.js';
 
 /**
@@ -156,26 +155,6 @@ const retrieveLatestBlogs = async (req, res) => {
 };
 
 
-const retriveLikes = async (req, res) => {
-  const { id } = req.params;
-  const userId = req.user._id;
-
-  try {
-    const blog = await Blog.findById(id);
-    const userLiked = blog.likes.includes(userId);
-
-    res.status(200).json({
-      success: true,
-      likes: blog.likes.length,
-      userLiked,
-    });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, error: "Could not update like status" });
-  }
-};
-
 const retriveBookmarks = async (req, res) => {
   const { id } = req.params;
   const userId = req.user._id;
@@ -207,6 +186,5 @@ export {
   retrieveBlogs,
   retrieveAllBlogs,
   retrieveLatestBlogs,
-  retriveLikes,
   retriveBookmarks,
 };

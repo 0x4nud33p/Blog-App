@@ -12,6 +12,7 @@ connectDB();
 app.use(
   cors({
     origin: [
+      "http://localhost:5173",
       "https://blog-app-coral-one.vercel.app",
       "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app",
       "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/auth/login",

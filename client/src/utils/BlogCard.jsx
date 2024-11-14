@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CalendarDays, Clock, User, ChevronRight } from 'lucide-react';
-import { FaBookmark, FaRegBookmark, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 
 export default function BlogCard({
   title,
@@ -9,10 +9,7 @@ export default function BlogCard({
   author,
   imageUrl,
   isBookmarked,
-  isLiked,
   onBookmarkToggle,
-  onLikeToggle,
-  likeCount,
   bookmarkCount,
 }) {
   const [showFullContent, setShowFullContent] = useState(false);
@@ -78,14 +75,6 @@ export default function BlogCard({
                   {isBookmarked ? <FaBookmark className="h-4 w-4" /> : <FaRegBookmark className="h-4 w-4" />}
                 </button>
                   {bookmarkCount}
-                <button
-                  onClick={onLikeToggle}
-                  className={`p-1 rounded-full ${isLiked ? 'bg-red-500 text-red-500' : 'bg-black bg-opacity-50 text-white'} hover:bg-opacity-75 transition-colors`}
-                  aria-label={isLiked ? "Unlike" : "Like"}
-                >
-                  {isLiked ? <FaHeart className="h-4 w-4" /> : <FaRegHeart className="h-4 w-4" />}
-                </button>
-                  {likeCount}
               </div>
             </div>
           </div>

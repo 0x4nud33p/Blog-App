@@ -18,17 +18,9 @@ const blogSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    likeCount: {
-      type: Number,
-      default: 0,
-    },
     bookmarkCount: {
       type : Number,
       default : 0,
-    },
-    isLiked : {
-      type : Boolean,
-      default : false,
     },
     isBookmarked : {
       type : Boolean,
