@@ -19,16 +19,13 @@ const blogSchema = new Schema(
       ref: "User",
     },
     bookmarkCount: {
-      type : Number,
-      default : 0,
-    },
-    isBookmarked : {
-      type : Boolean,
-      default : false,
+      type: Number,
+      default: 0,
+      index: true,
     },
     category: {
-      type: String, 
-      required: true, 
+      type: String,
+      required: true,
     },
   },
   {

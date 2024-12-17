@@ -177,6 +177,54 @@ const retriveBookmarks = async (req, res) => {
 
 
 
+const toggleBookmark = async (req, res) => {
+  const { id } = req.params;
+  const { blogId } = req.body; 
+
+  try {
+    const bookmark = await Bookmark.findOneAndUpdate(
+      { "bookmarks.blogId": blogId, "bookmarks.bookmarkedBy": id },
+      {
+        $pull: { bookmarks: { blogId, bookmarkedBy: id } },
+      },
+      { new: true }
+    );
+
+    if (bookmark && bookmark.bookmarks.some((b) => b.blogId === blogId)) {
+      await Blog.findByIdAndUpdate(
+        blogId,
+        { $inc: { bookmarkCount: -1 } },
+        { new: true }
+      );
+      return res
+        .status(200)
+        .json({ message: "Bookmark removed successfully." });
+    } else {
+      await Bookmark.updateOne(
+        { "bookmarks.bookmarkedBy": id },
+        {
+          $push: { bookmarks: { blogId, bookmarkedBy: id } },
+        },
+        { upsert: true, new: true }
+      );
+
+     
+      await Blog.findByIdAndUpdate(
+        blogId,
+        { $inc: { bookmarkCount: 1 } },
+        { new: true }
+      );
+
+      return res.status(200).json({ message: "Bookmark added successfully." });
+    }
+  } catch (error) {
+    console.error("Error updating bookmark:", error);
+    return res.status(500).json({ message: "An error occurred." });
+  }
+};
+
+
+
 
 
 export {
@@ -187,4 +235,5 @@ export {
   retrieveAllBlogs,
   retrieveLatestBlogs,
   retriveBookmarks,
+  toggleBookmark,
 };

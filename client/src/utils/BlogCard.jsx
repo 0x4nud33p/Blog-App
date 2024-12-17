@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CalendarDays, Clock, User, ChevronRight } from 'lucide-react';
 import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
+import axios from 'axios';
 
 export default function BlogCard({
   title,
@@ -9,8 +10,8 @@ export default function BlogCard({
   author,
   imageUrl,
   isBookmarked,
-  onBookmarkToggle,
   bookmarkCount,
+  blogid,
 }) {
   const [showFullContent, setShowFullContent] = useState(false);
 
@@ -22,6 +23,34 @@ export default function BlogCard({
   };
 
   const readingTime = calculateReadingTime(excerpt);
+
+  const handleToggleBookmark = async () => {
+  try {
+    const userDetails = localStorage.getItem("userDetails");
+    const token = localStorage.getItem("token");
+
+    if (userDetails && token) {
+      const { _id: userId } = JSON.parse(userDetails);
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_PRODUCTION_URL}/user/blog/${userId}/togglebookmark`,
+        { blogid },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(response.data.message);
+
+    } else {
+      console.error("User details or token not found.");
+    }
+  } catch (error) {
+    console.error("Error toggling bookmark:", error);
+  }
+};
 
   return (
     <div className="overflow-hidden rounded-lg text-white bg-card text-card-foreground shadow-md transition-all hover:shadow-lg bg-[#616a93] font-Cabin bg-opacity-10 p-4 hover:bg-opacity-20">
@@ -68,11 +97,11 @@ export default function BlogCard({
               </span>
               <div className="flex items-center space-x-2">
                 <button
-                  onClick={onBookmarkToggle}
-                  className={`p-1 rounded-full ${isBookmarked ? 'bg-primary text-primary-foreground' : 'bg-black bg-opacity-50 text-white'} hover:bg-opacity-75 transition-colors`}
+                  onClick={handleToggleBookmark}
+                  className={`p-1 rounded-full hover:bg-opacity-75 transition-colors`}
                   aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
                 >
-                  {isBookmarked ? <FaBookmark className="h-4 w-4" /> : <FaRegBookmark className="h-4 w-4" />}
+                <FaRegBookmark className="h-4 w-4" />
                 </button>
                   {bookmarkCount}
               </div>

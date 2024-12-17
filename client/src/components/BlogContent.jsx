@@ -65,6 +65,7 @@ function BlogContent({ methodtype, selectedCategory }) {
                 date={new Date(post.createdAt).toLocaleDateString()}
                 author={post.username}
                 bookmarkCount={post.bookmarkCount}
+                blogid={post._id}
               />
             ))
           ) : (

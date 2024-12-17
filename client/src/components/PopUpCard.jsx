@@ -3,84 +3,105 @@ import { BlogEditor } from "../../Exports.js";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-
 export default function PopUpCard({ onClose }) {
   const [blogImage, setBlogImage] = useState(null);
   const [blogHeading, setBlogHeading] = useState("");
   const [blogContent, setBlogContent] = useState("");
   const [category, setCategory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false); 
+  const [uploadedFileName, setUploadedFileName] = useState(""); 
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setBlogImage(file);
-    } else {
-      toast.error("Please upload a valid image file.");
-    }
-  };
-
-  const handleContentChange = (content) => setBlogContent(content);
-
-  const onSubmit = useCallback(async (e) => {
-    e.preventDefault();
-
-    if (!blogHeading || !blogContent || !blogImage || !category) {
-      toast.error("All fields are required.");
+    if (!file) {
+      toast.error("Please select a valid image file.");
       return;
     }
 
-    const loadingToast = toast.loading("Saving data...");
-    setIsLoading(true);
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Invalid file type. Please upload a JPG or PNG image.");
+      return;
+    }
+
+    setImageLoading(true); 
+    setUploadedFileName(""); 
 
     try {
       const imageData = new FormData();
-      imageData.append("file", blogImage);
+      imageData.append("file", file);
       imageData.append("upload_preset", "blogmediaupload");
 
       const imageUploadResponse = await axios.post(
         "https://api.cloudinary.com/v1_1/dbghbvuhb/image/upload",
         imageData
       );
+
       const imageUrl = imageUploadResponse?.data?.secure_url;
+      if (!imageUrl) throw new Error("Image upload failed.");
 
-      if (!imageUrl) {
-        throw new Error("Image upload failed.");
-      }
-
-      const userDetails = JSON.parse(localStorage.getItem("userDetails") || "{}");
-      const token = localStorage.getItem("token");
-
-      if (!userDetails._id || !token) {
-        throw new Error("User not authenticated.");
-      }
-
-      const response = await axios.post(
-        `${import.meta.env.VITE_PRODUCTION_URL}/user/blog/add?userid=${userDetails._id}`,
-        {
-          heading: blogHeading,
-          content: blogContent,
-          image: imageUrl,
-          category: category,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      if (response?.status === 201) {
-        toast.success("Blog saved successfully!");
-        onClose();
-      } else {
-        throw new Error("Failed to save blog.");
-      }
+      setBlogImage(imageUrl);
+      setUploadedFileName(file.name);
+      toast.success("Image uploaded successfully!");
     } catch (error) {
-      console.error("Error saving blog:", error);
-      toast.error("Failed to save blog. Please try again.");
+      console.error("Error uploading image:", error);
+      toast.error("Failed to upload image. Please try again.");
     } finally {
-      toast.dismiss(loadingToast);
-      setIsLoading(false);
+      setImageLoading(false);
     }
-  }, [blogHeading, blogContent, blogImage, category, onClose]);
+  };
+
+  const handleContentChange = (content) => setBlogContent(content);
+
+  const onSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+
+      if (!blogHeading || !blogContent || !blogImage || !category) {
+        toast.error("All fields are required.");
+        return;
+      }
+
+      const loadingToast = toast.loading("Saving data...");
+      setIsLoading(true);
+
+      try {
+        const userDetails = JSON.parse(localStorage.getItem("userDetails") || "{}");
+        const token = localStorage.getItem("token");
+
+        if (!userDetails._id || !token) {
+          throw new Error("User not authenticated.");
+        }
+
+        const response = await axios.post(
+          `${import.meta.env.VITE_PRODUCTION_URL}/user/blog/add?userid=${userDetails._id}`,
+          {
+            heading: blogHeading,
+            content: blogContent,
+            image: blogImage,
+            category: category,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        if (response?.status === 201) {
+          toast.success("Blog saved successfully!");
+          onClose();
+        } else {
+          throw new Error("Failed to save blog.");
+        }
+      } catch (error) {
+        console.error("Error saving blog:", error);
+        toast.error("Failed to save blog. Please try again.");
+      } finally {
+        toast.dismiss(loadingToast);
+        setIsLoading(false);
+      }
+    },
+    [blogHeading, blogContent, blogImage, category, onClose]
+  );
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-10">
@@ -91,8 +112,17 @@ export default function PopUpCard({ onClose }) {
             className="absolute right-4 top-4 p-2 rounded-full text-gray-400 hover:text-gray-600"
             onClick={onClose}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M6.293 6.293a1 1 0 011.414 0L10 8.586l2.293-2.293a1 1 0 111.414 1.414L11.414 10l2.293 2.293a1 1 0 01-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 01-1.414-1.414L8.586 10 6.293 7.707a1 1 0 010-1.414z" clipRule="evenodd" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M6.293 6.293a1 1 0 011.414 0L10 8.586l2.293-2.293a1 1 0 111.414 1.414L11.414 10l2.293 2.293a1 1 0 01-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 01-1.414-1.414L8.586 10 6.293 7.707a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
             </svg>
           </button>
 
@@ -106,7 +136,9 @@ export default function PopUpCard({ onClose }) {
               required
             />
 
-            <label htmlFor="category" className="block text-gray-700 font-medium">Category:</label>
+            <label htmlFor="category" className="block text-gray-700 font-medium">
+              Category:
+            </label>
             <select
               id="category"
               value={category}
@@ -114,7 +146,9 @@ export default function PopUpCard({ onClose }) {
               className="bg-gray-200 border border-gray-300 rounded p-2 w-full text-black"
               required
             >
-              <option value="" disabled>Select a category</option>
+              <option value="" disabled>
+                Select a category
+              </option>
               <option value="Tech & Programming">Tech & Programming</option>
               <option value="Design & UX/UI">Design & UX/UI</option>
               <option value="Career & Development">Career & Development</option>
@@ -130,12 +164,21 @@ export default function PopUpCard({ onClose }) {
 
             <BlogEditor onContentChange={handleContentChange} />
 
-            <input
-              type="file"
-              onChange={handleImageChange}
-              className="w-full border p-2 rounded-md"
-              required
-            />
+            <div className="flex items-center space-x-4">
+              <input
+                type="file"
+                onChange={handleImageChange}
+                className="w-full border p-2 rounded-md"
+                required
+              />
+              {imageLoading ? (
+                <span className="text-red-500 text-sm">Uploading...</span>
+              ) : (
+                uploadedFileName && (
+                  <span className="text-gray-700 text-sm">{uploadedFileName}</span>
+                )
+              )}
+            </div>
 
             <button
               type="submit"

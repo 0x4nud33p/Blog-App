@@ -1,20 +1,17 @@
+import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
 import { useState, useCallback, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
 
-export default function Signup() {
+export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
   });
   const [formError, setFormError] = useState(null);
-  const [profileImage, setProfileImage] = useState(null);
   const navigate = useNavigate();
-  
 
   const validateForm = useCallback(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -31,51 +28,39 @@ export default function Signup() {
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
-  const handleImageChange = (e) => {
-    setProfileImage(e.target.files[0]);
-  };
-
   const onSubmit = useCallback(
     async (e) => {
       e.preventDefault();
       if (!validateForm()) return;
 
-      const loadingToast = toast.loading("Saving data...");
+      const loadingToast = toast.loading("Signing in...");
       setIsLoading(true);
 
       try {
-        const imageData = new FormData();
-        imageData.append("file", profileImage);
-        imageData.append("upload_preset", "blogmediaupload");
-
-        const imageUploadResponse = await axios.post(
-          `https://api.cloudinary.com/v1_1/dbghbvuhb/image/upload`,
-          imageData
-        );
-
-        const imageUrl = imageUploadResponse.data.secure_url;
-        
-        const response = await axios.post(`${import.meta.env.VITE_PRODUCTION_URL}/api/auth/signup`, {
-            username: formData.username,
-            email: formData.email,
-            password: formData.password,
-            profileImage: imageUrl,
-          });
-        if (response.status === 201) {
-          toast.success("Signup successful! Please Login");
-          setFormError(null);
-          navigate("/auth/login");
+        const response = await axios.post(
+        `${import.meta.env.VITE_PRODUCTION_URL}/api/auth/login`,
+        {
+          email: formData.email,
+          password: formData.password,
+        }
+      );
+        if (response.status === 200) {
+          toast.dismiss(loadingToast);
+          toast.success("Sign in successful");
+          localStorage.setItem('token',response.data.token)
+          navigate('/profile');
         }
       } catch (error) {
-        console.error("Signup error:", error);
-        setFormError("An error occurred during signup. Please try again.");
-        toast.error("Signup failed. Please try again.");
-      } finally {
+        console.error("Signin error:", error);
         toast.dismiss(loadingToast);
+        const errorMessage = error.response?.data?.message || "An error occurred during sign-in. Please try again.";
+        toast.error(errorMessage);
+        setFormError(errorMessage); 
+      } finally {
         setIsLoading(false);
       }
     },
-    [formData, validateForm, navigate, profileImage]
+    [formData, validateForm, navigate]
   );
 
   const buttonClasses = useMemo(
@@ -88,46 +73,37 @@ export default function Signup() {
 
   return (
     <div className="bg-[#0b0c14] mt-[80px] min-h-[670px]">
-      <Toaster />
       <div className="mx-auto max-w-[350px] space-y-6 p-4">
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl text-white font-bold">Sign Up</h1>
+          <h1 className="text-3xl text-white font-bold">Sign In</h1>
           <p className="text-white">
-            Already a User?{" "}
-            <Link to="/auth/login" className="text-white underline">
-              Log In
+            Not a User?{" "}
+            <Link to="/auth/signup" className="text-white underline">
+              Sign Up
             </Link>
           </p>
         </div>
         <form onSubmit={onSubmit}>
-          <div className="space-y-4 text-white">
+          <div className="space-y-4">
             <div className="space-y-2">
-              <label htmlFor="username" className="block font-medium">Username</label>
-              <input
-                id="username"
-                type="text"
-                placeholder="Enter Username"
-                required
-                value={formData.username}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border text-black border-gray-300 rounded"
-              />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="email" className="block font-medium">Email</label>
+              <label htmlFor="email" className="text-white block font-medium">
+                Email
+              </label>
               <input
                 id="email"
                 type="email"
-                placeholder="Enter Email"
+                placeholder="m@example.com"
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border text-black border-gray-300 rounded"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded"
               />
               {formError && <p className="text-red-500 text-sm">{formError}</p>}
             </div>
             <div className="space-y-2">
-              <label htmlFor="password" className="block font-medium">Password</label>
+              <label htmlFor="password" className="text-white block font-medium">
+                Password
+              </label>
               <div className="relative">
                 <input
                   id="password"
@@ -145,17 +121,6 @@ export default function Signup() {
                   {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="profileImage" className="block font-medium">Profile Picture</label>
-              <input
-                id="profileImage"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="w-full border text-black border-gray-300 rounded"
-                required
-              />
             </div>
             <button
               className={buttonClasses}
@@ -177,16 +142,15 @@ export default function Signup() {
                     r="10"
                     stroke="currentColor"
                     strokeWidth="4"
-                  ></circle>
+                  />
                   <path
                     className="opacity-75"
                     fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8z"
-                  ></path>
+                    d="M4 12a8 8 0 0115.925 2.105A6 6 0 0012 22a6 6 0 000-12c-1.21 0-2.34.391-3.236 1.05A8 8 0 014 12z"
+                  />
                 </svg>
-              ) : (
-                "Sign Up"
-              )}
+              ) : null}
+              Sign In
             </button>
           </div>
         </form>
@@ -194,5 +158,3 @@ export default function Signup() {
     </div>
   );
 }
-
-

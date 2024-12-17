@@ -2,13 +2,14 @@ import mongoose, { Schema } from "mongoose";
 
 const bookmarkSchema = new Schema(
   {
-    blog: {
-      type: Schema.Types.ObjectId,
-      ref: "Blog",
-    },
-    bookmarkedBy: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+    bookmarks: {
+      type: [
+        {
+          blogId: String,
+          bookmarkedBy: String,
+        },
+      ],
+      default: [], 
     },
   },
   { timestamps: true }
