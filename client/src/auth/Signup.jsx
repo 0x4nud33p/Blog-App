@@ -1,7 +1,8 @@
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import _ from "lodash";
 
 export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,35 +14,37 @@ export default function Signup() {
   const [formError, setFormError] = useState(null);
   const navigate = useNavigate();
 
-  // Validate form data
-  const validateForm = useCallback(() => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!formData.email.trim()) {
-      setFormError("Email is required");
-      return false;
-    }
+  const debouncedValidateForm = useCallback(
+    _.debounce(() => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(formData.email)) {
-      setFormError("Please enter a valid email address");
-      return false;
-    }
+      if (!formData.email.trim()) {
+        setFormError("Email is required");
+        return false;
+      }
 
-    if (!formData.password.trim()) {
-      setFormError("Password is required");
-      return false;
-    }
+      if (!emailRegex.test(formData.email)) {
+        setFormError("Please enter a valid email address");
+        return false;
+      }
 
-    if (formData.password.length < 8) {
-      setFormError("Password must be at least 8 characters long");
-      return false;
-    }
+      if (!formData.password.trim()) {
+        setFormError("Password is required");
+        return false;
+      }
 
-    setFormError(null);
-    return true;
-  }, [formData]);
+      if (formData.password.length < 8) {
+        setFormError("Password must be at least 8 characters long");
+        return false;
+      }
 
-  // Handle input changes
+      setFormError(null);
+      return true;
+    }, 250),
+    [formData]
+  );
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -50,12 +53,12 @@ export default function Signup() {
     }));
   };
 
-  // Handle form submission
+
   const onSubmit = useCallback(
     async (e) => {
       e.preventDefault();
 
-      if (!validateForm()) return;
+      if (!debouncedValidateForm()) return;
 
       const loadingToast = toast.loading("Signing up...");
       setIsLoading(true);
@@ -66,10 +69,17 @@ export default function Signup() {
           formData
         );
 
-        if (response.status === 200) {
+        if (response.ok) {
           toast.dismiss(loadingToast);
           toast.success("Sign up successful! Please log in.");
           navigate("/auth/login");
+        } else {
+          toast.dismiss(loadingToast);
+          const errorMessage =
+            response.data?.message ||
+            "An error occurred during signup. Please try again.";
+          toast.error(errorMessage);
+          setFormError(errorMessage);
         }
       } catch (error) {
         console.error("Signup error:", error);
@@ -83,10 +93,9 @@ export default function Signup() {
         setIsLoading(false);
       }
     },
-    [formData, validateForm, navigate]
+    [formData, debouncedValidateForm, navigate]
   );
 
-  // Dynamic button classes
   const buttonClasses = useMemo(
     () =>
       `w-full py-2 px-4 font-medium text-white rounded ${
@@ -96,6 +105,10 @@ export default function Signup() {
       }`,
     [isLoading]
   );
+
+  useEffect(() => {
+    debouncedValidateForm();
+  }, [debouncedValidateForm]);
 
   return (
     <div className="bg-[#0b0c14] mt-[80px] min-h-[670px] flex items-center justify-center">
