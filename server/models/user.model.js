@@ -2,13 +2,6 @@ import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema(
   {
-    username: {
-      type: String,
-      required: true,
-      lowercase: true,
-      trim: true,
-      unique: true,
-    },
     email: {
       type: String,
       required: true,
@@ -19,10 +12,6 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-    },
-    profileImage: {
-      type: String,
-      required: false,
     },
   },
   {

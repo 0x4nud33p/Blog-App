@@ -10,20 +10,22 @@ async function hashPassword(password) {
 }
 
 const registerUser = async (req, res) => {
-  const { username, email, password, profileImage } = req.body;
+  const { email, password } = req.body;
 
-  if (!email || !password || !username) {
+  if (!email || !password) {
     return res.status(400).json({ message: "Please fill in all fields" });
   }
 
   try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email is already in use" });
+    }
     const hashedPassword = await hashPassword(password);
 
     const newUser = await User.create({
-      username,
       email,
       password: hashedPassword,
-      profileImage,
     });
 
     

@@ -11,16 +11,16 @@ connectDB();
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://blog-app-coral-one.vercel.app",
-      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app",
-      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/auth/login",
-      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/auth/signup",
-      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/blogs",
-      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/categories",
-      "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/Profile",
-    ],
+    // origin: [
+    //   "http://localhost:5173",
+    //   "https://blog-app-coral-one.vercel.app",
+    //   "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app",
+    //   "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/auth/login",
+    //   "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/auth/signup",
+    //   "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/blogs",
+    //   "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/categories",
+    //   "https://blog-kddnzsxl1-anudeep-avulas-projects.vercel.app/Profile",
+    // ],
   })
 );
 
