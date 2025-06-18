@@ -89,7 +89,14 @@ export function Footer() {
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 DevBlog. All rights reserved. Built with Next.js and Supabase.</p>
+          <p>&copy; 2025 DevBlog. All rights reserved. Built with ❤️ By  
+          <Link 
+          href={"https://github.com/0x4nud33p"}
+          target='_blank'
+          className='ml-1'
+          >
+            Anudeep
+          </Link> .</p>
         </div>
       </div>
     </footer>
