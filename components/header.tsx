@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
-import { useAuth } from '@/components/auth-provider';
+import { useAuth } from '@/hooks/useAuth';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -75,9 +75,9 @@ export function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={user.user_metadata?.avatar_url} alt={user.user_metadata?.name || user.email} />
+                      {/* <AvatarImage src={user.user_metadata?.avatar_url} alt={user.user_metadata?.name || user.email} /> */}
                       <AvatarFallback>
-                        {(user.user_metadata?.name || user.email)?.charAt(0).toUpperCase()}
+                        {/* {(user.user_metadata?.name || user.email)?.charAt(0).toUpperCase()} */}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -85,9 +85,9 @@ export function Header() {
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
-                      {user.user_metadata?.name && (
+                      {/* {user.user_metadata?.name && (
                         <p className="font-medium">{user.user_metadata.name}</p>
-                      )}
+                      )} */}
                       <p className="w-[200px] truncate text-sm text-muted-foreground">
                         {user.email}
                       </p>
