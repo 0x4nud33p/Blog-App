@@ -48,7 +48,6 @@ export function LoginForm() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {/* Social Login */}
           <div className="grid grid-cols-1 gap-4">
             <Button
               variant="outline"

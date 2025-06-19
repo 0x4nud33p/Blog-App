@@ -1,11 +1,9 @@
 import { Suspense } from 'react';
 import { Header } from '@/components/header';
 import { AdminDashboard } from '@/components/admin-dashboard';
-import { AuthGuard } from '@/components/auth-guard';
 
 export default function AdminPage() {
   return (
-    <AuthGuard requiredRole="admin">
       <div className="min-h-screen bg-background">
         <Header />
         <main className="py-8">
@@ -22,6 +20,5 @@ export default function AdminPage() {
           </div>
         </main>
       </div>
-    </AuthGuard>
   );
 }

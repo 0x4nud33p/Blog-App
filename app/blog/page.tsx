@@ -13,7 +13,7 @@ export default function NewPostPage() {
                 Write and publish a new blog post
               </p>
             </div>
-            <PostEditor />
+            {/* <PostEditor /> */}
           </div>
         </main>
       </div>

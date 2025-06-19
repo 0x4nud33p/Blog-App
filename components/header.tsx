@@ -24,7 +24,7 @@ export function Header() {
 
   const navigation = [
     { name: 'Home', href: '/', current: pathname === '/' },
-    { name: 'Blog', href: '/#posts', current: false },
+    { name: 'Blog', href: '/blog', current: false },
   ];
 
   if (user) {
