@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -20,6 +19,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Save, X } from "lucide-react";
 import { toast } from "sonner";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 
 const postSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -48,7 +49,14 @@ export function PostEditor({ post }: PostEditorProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState<string[]>(post?.tags || []);
-  const [content, setContent] = useState<string>(post?.content || "");
+
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: post?.content || "",
+    onUpdate: ({ editor }) => {
+      setValue("content", editor.getHTML());
+    },
+  });
 
   const {
     register,
@@ -90,7 +98,6 @@ export function PostEditor({ post }: PostEditorProps) {
     try {
       const postData = {
         ...data,
-        content: content, // Use the state content
         tags: data.tags
           .split(",")
           .map((tag) => tag.trim())
@@ -136,7 +143,6 @@ export function PostEditor({ post }: PostEditorProps) {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Title */}
             <div className="space-y-2">
               <Label htmlFor="title">Title</Label>
               <Input
@@ -151,14 +157,12 @@ export function PostEditor({ post }: PostEditorProps) {
               )}
             </div>
 
-            {/* Excerpt */}
             <div className="space-y-2">
               <Label htmlFor="excerpt">Excerpt</Label>
-              <Textarea
+              <Input
                 id="excerpt"
                 {...register("excerpt")}
                 placeholder="Brief description of the post"
-                rows={3}
               />
               {errors.excerpt && (
                 <p className="text-sm text-destructive">
@@ -167,7 +171,6 @@ export function PostEditor({ post }: PostEditorProps) {
               )}
             </div>
 
-            {/* Featured Image */}
             <div className="space-y-2">
               <Label htmlFor="featured_image">Featured Image URL</Label>
               <Input
@@ -183,7 +186,6 @@ export function PostEditor({ post }: PostEditorProps) {
               )}
             </div>
 
-            {/* Tags */}
             <div className="space-y-2">
               <Label>Tags</Label>
               <div className="flex flex-wrap gap-2 mb-2">
@@ -216,13 +218,11 @@ export function PostEditor({ post }: PostEditorProps) {
               </p>
             </div>
 
-            {/* Content */}
             <div className="space-y-2">
               <Label>Content</Label>
-              {/* <RichTextEditor
-                content={content}
-                onChange={(html) => setContent(html)}
-              /> */}
+              <div className="prose prose-sm dark:prose-invert border rounded-md p-2">
+                <EditorContent editor={editor} />
+              </div>
               {errors.content && (
                 <p className="text-sm text-destructive">
                   {errors.content.message}
@@ -230,7 +230,6 @@ export function PostEditor({ post }: PostEditorProps) {
               )}
             </div>
 
-            {/* Published */}
             <div className="flex items-center space-x-2">
               <Switch
                 id="published"
@@ -242,7 +241,6 @@ export function PostEditor({ post }: PostEditorProps) {
           </CardContent>
         </Card>
 
-        {/* Actions */}
         <div className="flex items-center justify-between">
           <Button type="button" variant="outline" onClick={() => router.back()}>
             Cancel
