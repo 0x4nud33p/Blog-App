@@ -2,8 +2,6 @@
 
 A modern, full-stack blogging platform built with Next.js 14, featuring real-time interactions, user authentication, and a sleek responsive design.
 
-![Blog App Screenshot](https://via.placeholder.com/800x400/4f46e5/ffffff?text=Blog+App+Screenshot)
-
 ## ✨ Features
 
 - 🔐 **User Authentication** - Secure signup/login system
